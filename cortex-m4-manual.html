@@ -4352,6 +4352,10 @@ Will be covered in the future...
 <ol>
     <li><i>Op2</i> is a flexible operand that can be either a register or a constant.</li>
     <br/>
+    <li><i>S</i> is optional, if specified, the condition code flags (N, Z, C, V) are updated on the result of the operation.</li>
+    <br/>
+    <li><a href="#cond-suffix"><i>cond</i></a> is an optional suffix.</li>
+    <br/>
     <li><i>Shift</i> is an optional shift to be applied to Rm.<br/>
         It can be one of the following:</li>
     <ul>
@@ -4376,6 +4380,58 @@ Will be covered in the future...
     </ul>
     <br/>
     <li id="isa-summary">Summary:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Mnemonic</th>
+                <th>Description</th>
+                <th>Flags</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>ADD{S}{cond} Rd, Rn, Op2</code></td>
+                <td></td>
+                <td><b>N</b>, <b>Z</b>, <b>C</b>, <b>V</b></td>
+            </tr>
+            <tr>
+                <td><code>ADC{S}{cond} Rd, Rn, Op2</code></td>
+                <td></td>
+                <td><b>N</b>, <b>Z</b>, <b>C</b>, <b>V</b></td>
+            </tr>
+            <tr>
+                <td><code>ADR Rd, label</code></td>
+                <td></td>
+                <td>--</td>
+            </tr>
+            <tr>
+                <td><code>AND{S}{cond} Rd, Rn, Op2</code></td>
+                <td></td>
+                <td><b>N</b>, <b>Z</b>, <b>C</b></td>
+            </tr>
+            <tr>
+                <td><code>ASR{S}{cond} Rd, Rm, &lt;Rs|#n&gt;</code></td>
+                <td></td>
+                <td><b>N</b>, <b>Z</b>, <b>C</b></td>
+            </tr>
+            <tr>
+                <td><code></code></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><code></code></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><code></code></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
     <br/>
 </ol>
 <br/>
@@ -4412,7 +4468,107 @@ Will be covered in the future...
 
 
 <!-- -- -- -- -- -- -- -- -- -- -->
-<h3> H3 </h3>
+<h3 id="cond-suffix"> Conditional Code Suffixes </h3>
+<ol>
+    <li>Summary:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Suffix</th>
+                <th>Flags</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>EQ</b></td>
+                <td>Z = 1</td>
+                <td><b>EQ</b>ual</td>
+            </tr>
+            <tr>
+                <td><b>NE</b></td>
+                <td>Z = 0</td>
+                <td><b>N</b>ot <b>E</b>qual</td>
+            </tr>
+            <tr>
+                <td><b>CS</b> or <b>HS</b></td>
+                <td>C = 1</td>
+                <td><b>H</b>igher or <b>S</b>ame. Unsigned ≥</td>
+            </tr>
+            <tr>
+                <td><b>CC</b> or <b>LO</b></td>
+                <td>C = 0</td>
+                <td><b>LO</b>wer. Unsigned &lt;</td>
+            </tr>
+            <tr>
+                <td><b>MI</b></td>
+                <td>N = 1</td>
+                <td><b>MI</b>nus (negative)</td>
+            </tr>
+            <tr>
+                <td><b>PL</b></td>
+                <td>N = 0</td>
+                <td><b>PL</b>us (positive or zero)</td>
+            </tr>
+            <tr>
+                <td><b>VS</b></td>
+                <td>V = 1</td>
+                <td>O<b>V</b>erflow <b>S</b>et</td>
+            </tr>
+            <tr>
+                <td><b>VC</b></td>
+                <td>V = 0</td>
+                <td>O<b>V</b>erflow <b>C</b>leared</td>
+            </tr>
+            <tr>
+                <td><b>HI</b></td>
+                <td>C = 1 and Z = 0</td>
+                <td><b>HI</b>gher. Unsigned &gt; </td>
+            </tr>
+            <tr>
+                <td><b>LS</b></td>
+                <td>C = 0 or Z = 1</td>
+                <td><b>L</b>ower or <b>S</b>ame. Unsigned ≤ </td>
+            </tr>
+            <tr>
+                <td><b>GE</b></td>
+                <td>N = V</td>
+                <td><b>G</b>reater or <b>E</b>qual. Signed ≥ </td>
+            </tr>
+            <tr>
+                <td><b>LT</b></td>
+                <td>N != V</td>
+                <td><b>L</b>ess <b>T</b>han. Signed &lt; </td>
+            </tr>
+            <tr>
+                <td><b>GT</b></td>
+                <td>Z = 0 and N = V</td>
+                <td><b>G</b>reater <b>T</b>han. Signed &gt; </td>
+            </tr>
+            <tr>
+                <td><b>LE</b></td>
+                <td>Z = 1 or N != V</td>
+                <td><b>L</b>ess or <b>E</b>qual. Signed ≤ </td>
+            </tr>
+            <tr>
+                <td><b>AL</b></td>
+                <td>-</td>
+                <td><b>AL</b>ways. This is the default when no suffix is sepcified.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>Example Usage:</li>
+    <pre><code>
+        CMP   R0, #10      ; Compare R0 with 10, sets flags
+        BGE   greater_eq   ; Branch if R0 >= 10  (N == V)
+        ADDNE R1, R1, #1   ; Increment R1 if R0 != 10  (Z == 0)
+    </code></pre>
+    <br/>
+</ol>
+<br/>
 <!-- -- -- -- -- -- -- -- -- -- -->
 
 
@@ -4420,7 +4576,65 @@ Will be covered in the future...
 
 
 <!-- -- -- -- -- -- -- -- -- -- -->
-<h3> H3 </h3>
+<h3> ADD, ADC, SUB, SBC, and RSB </h3>
+<ol>
+    <li>Syntax:</li>
+    <pre><code>
+        op{S}{cond} {Rd, } Rn, Op2
+        op{cond} {Rd, } Rn, #imm12; ADD and SUB only
+    </code></pre>
+    <br/>
+    <li><i>'op'</i></li>
+    <br/>
+    <ul>
+        <li><b class="hl-green-fg">ADD</b>: Add</li>
+        <br/>
+        <li><b class="hl-green-fg">ADC</b>: Add with carry</li>
+        <br/>
+        <li><b class="hl-green-fg">SUB</b>: Sub</li>
+        <br/>
+        <li><b class="hl-green-fg">SUBC</b>: Sub with carry</li>
+        <br/>
+        <li><b class="hl-green-fg">RSB</b>: Reverse sub</li>
+        <br/>
+    </ul>
+    <br/>
+    <li><i>'S'</i></li>
+    <br/>
+    <ul>
+        <li></li>
+        <br/>
+    </ul>
+    <br/>
+    <li><i>'cond'</i></li>
+    <br/>
+    <ul>
+        <li></li>
+        <br/>
+    </ul>
+    <br/>
+    <li><i>'Rd'</i></li>
+    <br/>
+    <ul>
+        <li></li>
+        <br/>
+    </ul>
+    <br/>
+    <li><i>'Rn'</i></li>
+    <br/>
+    <ul>
+        <li></li>
+        <br/>
+    </ul>
+    <br/>
+    <li><i>'imm12'</i></li>
+    <br/>
+    <ul>
+        <li></li>
+        <br/>
+    </ul>
+</ol>
+<br/>
 <!-- -- -- -- -- -- -- -- -- -- -->
 
 
