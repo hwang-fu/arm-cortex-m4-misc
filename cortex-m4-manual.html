@@ -1,0 +1,4096 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<!-- ************************************ -->
+<style>
+    table {
+        border-collapse: collapse;      /* merge borders so you don't get double lines */
+        width: 100%;                    /* optional: make it full width */
+        font-family: system-ui, sans-serif;
+        font-size: 14px;
+    }
+
+    th {
+        background-color: #f5f5f5;      /* light gray header background */
+        text-align: left;               /* header text alignment */
+        font-weight: 600;
+    }
+
+    th, td {
+        border: 1px solid #ddd;         /* subtle border color */
+        padding: 8px 12px;              /* breathing room */
+    }
+
+    tr:nth-child(even) {
+        background-color: #fafafa;      /* zebra striping for readability */
+    }
+
+    tr:hover {
+        background-color: #f0f8ff;      /* light hover highlight */
+    }
+
+    .hl-red {
+        background-color: red;
+    }
+
+    .hl-green {
+        background-color: green;
+    }
+
+    .hl-blue {
+        background-color: blue;
+    }
+
+    .hl-yellow {
+        background-color: yellow;
+    }
+
+    .hl-red-bg {
+        background-color: red;
+    }
+
+    .hl-green-bg {
+        background-color: green;
+    }
+
+    .hl-blue-bg {
+        background-color: blue;
+    }
+
+    .hl-yellow-bg {
+        background-color: yellow;
+    }
+
+    .hl-red-fg {
+        color: red;
+    }
+
+    .hl-green-fg {
+        color: green;
+    }
+
+    .hl-blue-fg {
+        color: blue;
+    }
+
+    .hl-yellow-fg {
+        color: yellow;
+    }
+
+    .red-underline {
+        text-decoration-line: underline;
+        text-decoration-color: red;
+        text-decoration-thickness: 2px; /* optional: make it a bit thicker */
+        text-underline-offset: 2px;     /* optional: move it slightly down */
+    }
+</style>
+<!-- ************************************ -->
+<script>
+</script>
+</head>
+<!-- ************************************ -->
+
+<body>
+<hr/>
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3>Abbreviations</h3>
+
+<ol>
+    <li><b>r</b>: read-only</li>
+    <br/>
+    <li><b>ro</b>: read-only</li>
+    <br/>
+    <li><b>rw</b>: read-write</li>
+    <br/>
+    <li><b>wo</b>: wrote-only</li>
+    <br/>
+    <li><b>rs</b>: read / set-on-write-1 (write 1 sets the bit; write 0 does nothing)</li>
+    <br/>
+    <li><b>rc_w1</b>: read / clear-on-write-1 (write 1 clears the bit; write 0 does nothing)</li>
+    <br/>
+    <li><b>rw1</b>: read / write-1-toggle (write 1 toggles the bit; write 0 does nothing)</li>
+    <br/>
+    <li><b>rh</b>: read / hardware-set (only hardware can set it; software can clear or read)</li>
+    <br/>
+    <li><b>rc</b>: read / clear-on-read </li>
+    <br/>
+    <li><b>rs_w1</b>: read / set-on-write-1 (alias of rs)</li>
+    <br/>
+</ol>
+
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Styles Display Testing </h3>
+
+<p>
+This is normal text.
+
+<br/>
+
+<span class="hl-yellow"> This part is highlighted as yellow.</span>
+
+<br/>
+
+<span class="hl-green"> This part is highlighted as green.</span>
+
+<br/>
+
+<mark> This part is marked.</mark>
+
+<br/>
+
+<code>This is a literal text.</code>
+
+<br/>
+
+<pre><code>
+This is
+multi-line
+literal text.
+</code></pre>
+
+<br/>
+
+<b>This part is bold.</b>
+
+<br/>
+
+<i>This part is italic.</i>
+
+<br/>
+
+<u>This part is underline.</u>
+
+<br/>
+
+<cite>This part is cited.</cite>
+
+<br/>
+
+<del> This part is del. </del>
+
+<br/>
+
+<s> This part is strikethru. </s>
+
+<br/>
+
+<ins> This part is ins. </ins>
+
+<br/>
+
+This part is <sup> superscript </sup> .
+
+<br/>
+
+This part is <sub> subscript </sub> .
+
+<br/>
+
+<q> This part is quoted . </q>
+
+<br/>
+
+<ol>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</ol>
+
+<br/>
+
+<ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</ul>
+
+<br/>
+
+<dl>
+    <dt>Discripton Term 1</dt>
+        <dd>Discripton Data 1</dd>
+        <dd>Discripton Data 2</dd>
+        <dd>Discripton Data 3</dd>
+    <dt>Discripton Term 2</dt>
+        <dd>Discripton Data 4</dd>
+</dl>
+
+<br/>
+
+<table>
+    <caption>Table Caption</caption>
+    <thead>
+        <tr>
+            <th>Table Head 1</th>
+            <th>Table Head 2</th>
+            <th>Table Head 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Table Data 1</td>
+            <td>Table Data 2</td>
+            <td>Table Data 3</td>
+        </tr>
+
+        <tr>
+            <td>Table Data 4</td>
+            <td>Table Data 5</td>
+            <td>Table Data 6</td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+
+<details open>
+    <summary>Details by default open</summary>
+    <p>This text can be hidden or shown.</p>
+</details>
+
+
+<details close>
+    <summary>Details by default close</summary>
+    <p>This text can be hidden or shown.</p>
+</details>
+
+<br/>
+
+Progress bar of 40% <progress value="40" max="100"></progress>
+
+<br/>
+
+Meter bar of 80% <meter value="0.8" min="0" max="1"></meter>
+
+<br/>
+
+<br/>
+
+</p>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> STM32 core peripheral register regions </h3>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Address</th>
+            <th>Core Peripheral</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>0xE000E010 ~ 0xE000E01F</code></td>
+            <td>System Timer</td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000E100 ~ 0xE000E4Ef</code></td>
+            <td><span class="red-underline">NVIC</span> - Nested Vectored Interrupt Controller</td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000Ed00 ~ 0xE000ED3F</code></td>
+            <td>System Control Block</td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000ED88 ~ 0xE000ED8B</code></td>
+            <td>FPU Coprocessor Access Control</td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000ED90 ~ 0xE000EDB8</code></td>
+            <td><span class="red-underline">MPU</span> - Memory Protection Unit (rarely used in Cortex-M4 programming)</td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000EF00 ~ 0xE000EF03</code></td>
+            <td><span class="red-underline">NVIC</span> Again</td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000EF30 ~ 0xE000EF44</code></td>
+            <td><span class="red-underline">FPU</span> - Floating Point Unit</td>
+        </tr>
+    </tbody>
+</table>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> MPU - Memory Protection Unit </h3>
+
+1. It is not commonly used in Cortex-M4 MCU.
+
+2. Update it in free time.
+
+<br/>
+
+<hr/>
+
+<h3> NVIC - Nested Vectored Interrupt Controller </h3>
+
+1. The <span class="red-underline">NVIC</span> Supports:
+
+<ul>
+    <li>Up to <b>240</b> interrupts.</li>
+    <br/>
+    <li>A programmable priority level of <b> 0 ~ 15 </b> for each interrupt. </li>
+    <br/>
+    <li>The <u>smaller</u> the priority value, the <u>higher</u> the priority level.  <b> 0 </b> is the highest priority.</li>
+    <br/>
+    <li><u>Level</u> and <u>Pulse</u> detection of interrupts.</li>
+    <br/>
+    <li>Grouping of priority values into <u>group priority</u> and <u>subpriority field</u></li>
+    <br/>
+    <li>An external <u>NMI</u> (Non-Maskable Interrupt) </li>
+    <br/>
+    <li>Interrupt Tail-Chaining</li>
+    <br/>
+    <li>Dynamic re-prioritization of interrupts.</li>
+    <br/>
+</ul>
+
+2. The processor <u>automatically</u> stacks its state on exception entry and unstacks this state on exception exit, with no instruction overhead.
+
+<br/>
+<br/>
+
+3. <span id="nvic-register-summary">NVIC Register Summary</span>:
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Address</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required Privilege</th>
+            <th>Value on Reset</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code> 0xE000E100 ~ 0xE000E11F </code></td>
+            <td>NVIC_ISER0 ~ NVIC_ISER7 &nbsp;&nbsp;&nbsp; <a href="#nvic_iser">(goto)</a></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><b>0x00000000</b></td>
+        </tr>
+
+        <tr>
+            <td><code> 0xE000E180 ~ 0xE000E19F </code></td>
+            <td>NVIC_ICER0 ~ NVIC_ICER7  &nbsp;&nbsp;&nbsp; <a href="#nvic_icer">(goto)</a></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><b>0x00000000</b></td>
+        </tr>
+
+
+        <tr>
+            <td><code> 0xE000E200 ~ 0xE000E21F </code></td>
+            <td>NVIC_ISPR0 ~ NVIC_ISPR7  &nbsp;&nbsp;&nbsp; <a href="#nvic_ispr">(goto)</a></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><b>0x00000000</b></td>
+        </tr>
+
+
+        <tr>
+            <td><code> 0xE000E280 ~ 0xE000E29F </code></td>
+            <td>NVIC_ICPR0 ~ NVIC_ICPR7  &nbsp;&nbsp;&nbsp; <a href="#nvic_icpr">(goto)</a></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><b>0x00000000</b></td>
+        </tr>
+
+
+        <tr>
+            <td><code> 0xE000E300 ~ 0xE000E31F </code></td>
+            <td>NVIC_IABR0 ~ NVIC_IABR7  &nbsp;&nbsp;&nbsp; <a href="#nvic_iabr">(goto)</a></td>
+            <td>RO</td>
+            <td>Privileged</td>
+            <td><b>0x00000000</b></td>
+        </tr>
+
+
+        <tr>
+            <td><code> 0xE000E400 ~ 0xE000E4EF </code></td>
+            <td>NVIC_IPR0 ~ NVIC_IPR59  &nbsp;&nbsp;&nbsp; <a href="#nvic_ipr">(goto)</a></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><b>0x00000000</b></td>
+        </tr>
+
+
+        <tr>
+            <td><code>0xE000EF00</code></td>
+            <td>NVIC_STIR  &nbsp;&nbsp;&nbsp; <a href="#nvic_stir">(goto)</a></td>
+            <td>WO</td>
+            <td>Configurable</td>
+            <td><b>0x00000000</b></td>
+        </tr>
+
+
+    </tbody>
+</table>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="nvic_iser"> interrupt set-enable register x (<a href="#nvic-register-summary">NVIC_ISERx</a>) </h3>
+
+0. Base Address for NVIC_ Registers: <code>0xE000 E000</code>
+
+<br/>
+<br/>
+
+1. Address offset: <code>   0x0100 + 0x04 * x   </code> (x = 0 ~ 7)
+
+<br/>
+<br/>
+
+2. Each <u>NVIC_ISER</u> register is <u>32-bit</u>.
+
+<br/>
+<br/>
+
+3. Bit Mapping. <b>NVIC_ISER<code>x[y]</code></b> = <code>interrupt 32 * x + y</code>
+
+<ul>
+    <li>NVIC_ISER0 bits 0 ~ 31 are for interrupt 0 ~ 31, respectively</li>
+    <li>NVIC_ISER1 bits 0 ~ 31 are for interrupt 32 ~ 63, respectively</li>
+    <li> ... </li>
+    <li>NVIC_ISER6 bits 0 ~ 31 are for interrupt 192 ~ 223, respectively</li>
+    <li>NVIC_ISER7 bits 0 ~ 31 are for interrupt 224 ~ 239, respectively</li>
+</ul>
+
+<br/>
+<br/>
+
+4. Write.
+
+<ul>
+    <li>0 - No Effect.</li>
+    <li>1 - Enable Corresponding Interrupt.</li>
+</ul>
+
+<br/>
+<br/>
+
+5. Read.
+
+<ul>
+    <li>0 - Corresponding Interrupt is Disabled.</li>
+    <li>1 - Corresponding Interrupt is Enabled.</li>
+</ul>
+
+<br/>
+<br/>
+
+6. Bits 16 ~ 31 of the <u>NVIC_ISER7</u> register are reserved.
+
+<br/>
+<br/>
+
+7.  If a pending interrupt is enabled, the NVIC activates the interrupt based on its <u>priority</u>.
+    If an interrupt is not enabled, asserting its interrupt signal changes the interrupt state to pending,
+    but the NVIC never activates the interrupt, regardless of its priority.
+
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="nvic_icer"> interrupt clear-enable register x (<a href="#nvic-register-summary">NVIC_ICERx</a>) </h3>
+
+1. Address offset: <code>   0x0180 + 0x04 * x   </code> (x = 0 ~ 7)
+
+<br/>
+<br/>
+
+2. Each <u>NVIC_ICER</u> register is <u>32-bit</u>.
+
+<br/>
+<br/>
+
+3. Bit Mapping. <b>NVIC_ICER<code>x[y]</code></b> = <code>interrupt 32 * x + y</code>
+
+<ul>
+    <li>NVIC_ICER0 bits 0 ~ 31 are for interrupt 0 ~ 31, respectively</li>
+    <li>NVIC_ICER1 bits 0 ~ 31 are for interrupt 32 ~ 63, respectively</li>
+    <li> ... </li>
+    <li>NVIC_ICER6 bits 0 ~ 31 are for interrupt 192 ~ 223, respectively</li>
+    <li>NVIC_ICER7 bits 0 ~ 31 are for interrupt 224 ~ 239, respectively</li>
+</ul>
+
+<br/>
+<br/>
+
+4. Write.
+
+<ul>
+    <li>0 - No Effect.</li>
+    <li>1 - Disable Corresponding Interrupt.</li>
+</ul>
+
+<br/>
+<br/>
+
+5. Read.
+
+<ul>
+    <li>0 - Corresponding Interrupt is Disabled.</li>
+    <li>1 - Corresponding Interrupt is Enabled.</li>
+</ul>
+
+<br/>
+<br/>
+
+6. Bits 16 ~ 31 of the <u>NVIC_ICER7</u> register are reserved.
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="nvic_ispr"> interrupt set-pending register x (<a href="#nvic-register-summary">NVIC_ISPRx</a>) </h3>
+
+
+1. Address offset: <code>   0x0200 + 0x04 * x   </code> (x = 0 ~ 7)
+
+<br/>
+<br/>
+
+2. Each <u>NVIC_ISPR</u> register is <u>32-bit</u>.
+
+<br/>
+<br/>
+
+3. Bit Mapping. <b>NVIC_ISPR<code>x[y]</code></b> = <code>interrupt 32 * x + y</code>
+
+<br/>
+<br/>
+
+4. Write.
+
+<ul>
+    <li>0 - No Effect.</li>
+    <li>1 - Set Corresponding Interrupt State to Pending.</li>
+</ul>
+
+<br/>
+<br/>
+
+5. Read.
+
+<ul>
+    <li>0 - Corresponding Interrupt is Not Pending.</li>
+    <li>1 - Corresponding Interrupt is Pending.</li>
+</ul>
+
+<br/>
+<br/>
+
+6. Bits 16 ~ 31 of the <u>NVIC_ISPR7</u> register are reserved.
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="nvic_icpr"> interrupt clear-pending register x (<a href="#nvic-register-summary">NVIC_ICPRx</a>) </h3>
+
+
+1. Address offset: <code>   0x0280 + 0x04 * x   </code> (x = 0 ~ 7)
+
+<br/>
+<br/>
+
+2. Each <u>NVIC_ICPR</u> register is <u>32-bit</u>.
+
+<br/>
+<br/>
+
+3. Bit Mapping. <b>NVIC_ICPR<code>x[y]</code></b> = <code>interrupt 32 * x + y</code>
+
+<br/>
+<br/>
+
+
+4. Write.
+
+<ul>
+    <li>0 - No Effect.</li>
+    <li>1 - Remove the Corresponding Interrupt Pending State.</li>
+</ul>
+
+<br/>
+<br/>
+
+5. Read.
+
+<ul>
+    <li>0 - Corresponding Interrupt is Not Pending.</li>
+    <li>1 - Corresponding Interrupt is Pending.</li>
+</ul>
+
+<br/>
+<br/>
+
+6. Bits 16 ~ 31 of the <u>NVIC_ICPR7</u> register are reserved.
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="nvic_iabr"> interrupt active-bit register x (<a href="#nvic-register-summary">NVIC_IABRx</a>) </h3>
+
+1. Address offset: <code>   0x0300 + 0x04 * x   </code> (x = 0 ~ 7)
+
+<br/>
+<br/>
+
+2. Each <u>NVIC_IABR</u> register is <u>32-bit</u>.
+
+<br/>
+<br/>
+
+3. Bit Mapping. <b>NVIC_IABR<code>x[y]</code></b> = <code>interrupt 32 * x + y</code>
+
+<br/>
+<br/>
+
+4. Read.
+
+<ul>
+    <li>0 - Corresponding Interrupt is Not Active.</li>
+    <li>1 - Corresponding Interrupt is Active.</li>
+</ul>
+
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="nvic_ipr"> interrupt priority register x (<a href="#nvic-register-summary">NVIC_IPRx</a>) </h3>
+
+1. Address offset: <code>   0x0400 + 0x04 * x   </code> (x = 0 ~ 59)
+
+<br/>
+<br/>
+
+2. Each <u>NVIC_IPR</u> register is <u>32-bit</u>.
+
+<br/>
+<br/>
+
+3.  The NVIC_IPRx byte-accessible registers provide <u>8-bit</u> priority fields <b>IP[N]</b> (N = 0 ~ 239)
+    for in total 240 interrupts.
+<br/>
+    Each priority field holds a priority value.
+    The lower the value, the greater the priority level.
+<br/>
+    However, the Cortex-M4  only cares about <u>bits 7 ~ 4</u> of each <b>IP[N]</b>,
+    the lower bits 3 ~ 0 are ignored.
+    So it actually just supports 16 different priority levels (0 ~ 15)
+
+
+<br/>
+<br/>
+
+4. Mapping of <b>IP[N]</b> Fields in NVIC_IPRx Regs.
+<br/>
+<br/>
+<table>
+    <thead>
+        <tr>
+            <th>Reg</th>
+            <th>Bits 31 ~ 24</th>
+            <th>Bits 23 ~ 16</th>
+            <th>Bits 15 ~ 8</th>
+            <th>Bits 7 ~ 0 </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>NVIC_IPR59</td>
+            <td><b>IP[<code>239</code>]</b></td>
+            <td><b>IP[<code>238</code>]</b></td>
+            <td><b>IP[<code>237</code>]</b></td>
+            <td><b>IP[<code>236</code>]</b></td>
+        </tr>
+
+
+        <tr>
+            <td>NVIC_IPRx</td>
+            <td><b>IP[<code>4x + 3</code>]</b></td>
+            <td><b>IP[<code>4x + 2</code>]</b></td>
+            <td><b>IP[<code>4x + 1</code>]</b></td>
+            <td><b>IP[<code>4x</code>]</b></td>
+        </tr>
+
+
+        <tr>
+            <td>NVIC_IPR0</td>
+            <td><b>IP[<code>3</code>]</b></td>
+            <td><b>IP[<code>2</code>]</b></td>
+            <td><b>IP[<code>1</code>]</b></td>
+            <td><b>IP[<code>0</code>]</b></td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="nvic_stir"> software trigger interrupt register x (<a href="#nvic-register-summary">NVIC_STIR</a>) </h3>
+
+1. Address offset: <code>   0x0E00   </code>
+
+<br/>
+<br/>
+
+2. The <b>NVIC_STIR</b> register is 32-bit. However, ony <u>bits 8 ~ 0</u> are used.
+
+<br/>
+<br/>
+
+3.  Require Privilege:
+    <br/>
+    When <b>USERSETMPEND</b> bit in the <b>SCR</b> is set to 1, unprivileged software can access <b>NVIC_STIR</b>.
+    <br/>
+    Only privileged software can enable the unprivileged access to the <b>NVIC_STIR</b>.
+
+<br/>
+<br/>
+
+4.  Write to this reg to generate a Software Generated Interrupt (<u>SGI</u>).
+    <br/>
+    The value to be written is the <u>Interrupt ID</u> of the required SGI, in the range 0 ~ 239.
+    <br/>
+    For example, a value of <code>0x03</code> specifies interrupt <u>IRQ3</u>.
+
+
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> System Control Block (<u>SCB</u>) </h3>
+
+1. <span id="scb-summary">Summary</span>.
+<br/>
+<br/>
+<table>
+    <thead>
+        <tr>
+            <th>Address</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required Privileged</th>
+            <th>Reset Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>0xE000 E008</code></td>
+            <td><b><a href="#actlr">ACTLR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00000000</code></td>
+        </tr>
+
+
+        <tr>
+            <td><code>0xE000 ED00</code></td>
+            <td><b><a href="#cpuid">CPUID</a></b></td>
+            <td>RO</td>
+            <td>Privileged</td>
+            <td><code>0x410FC241</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED04</code></td>
+            <td><b><a href="#icsr">ICSR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00000000</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED08</code></td>
+            <td><b><a href="#vtor">VTOR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00000000</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED0C</code></td>
+            <td><b><a href="#aircr">AIRCR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0xFA050000</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED10</code></td>
+            <td><b><a href="#scr">SCR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00000000</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED14</code></td>
+            <td><b><a href="#ccr">CCR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00000200</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED18</code></td>
+            <td><b><a href="#shpr1">SHPR1</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00000000</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED1C</code></td>
+            <td><b><a href="#shpr2">SHPR2</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00000000</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED20</code></td>
+            <td><b><a href="#shpr3">SHPR3</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00000000</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED24</code></td>
+            <td><b><a href="#shcsr">SHCSR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00000000</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED28</code></td>
+            <td><b><a href="#cfsr">CFSR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00000000</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED28</code></td>
+            <td><b><a href="#mmsr">MMSR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED29</code></td>
+            <td><b><a href="#bfsr">BFSR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED2A</code></td>
+            <td><b><a href="#ufsr">UFSR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x0000</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED2C</code></td>
+            <td><b><a href="#hfsr">HFSR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00000000</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED34</code></td>
+            <td><b><a href="#mmfar">MMFAR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>Unknown</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED38</code></td>
+            <td><b><a href="#bfar">BFAR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>Unknown</code></td>
+        </tr>
+
+        <tr>
+            <td><code>0xE000 ED3C</code></td>
+            <td><b><a href="#afsr">AFSR</a></b></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><code>0x00000000</code></td>
+        </tr>
+
+    </tbody>
+</table>
+
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="actlr"> Auxiliary Control Register (<a href="#scb-summary">ACTLR</a>)</h3>
+<ol>
+
+1. Address offset: 0x00 (base adress = <code>0xE000 E008</code>)
+
+<br/>
+<br/>
+
+2. About.
+<br/>
+By default this reg is set to provide optimum performance for the Cortex-M4.
+It does not normally need modification.
+<br/>
+It's mainly used by SoC designers or RTOS kernels, not typical application code.
+<br/>
+The <b>ACTLR</b> register is <u>32-bit</u> and provides disable bits for the following processor functions:
+<ul>
+    <li>IT Folding</li>
+    <li>write buffer behavior</li>
+    <li>(on M4 / M7) some cache or speculative read controls</li>
+</ul>
+<br/>
+
+3. Only the bits 9, 8, and 2, 1, 0 are used. Other bits are reserved.
+
+<br/>
+<br/>
+
+4. Mapping.
+<br/>
+<br/>
+
+<table>
+    <thead>
+        <tr>
+            <th>Bit 9</th>
+            <th>Bit 8</th>
+            <th>Bit 2</th>
+            <th>Bit 1</th>
+            <th>Bit 0</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>DISOOFP</td>
+            <td>DISFPCA</td>
+            <td>DISFOLD</td>
+            <td>DISDEFWBUF</td>
+            <td>DISMCYCINT</td>
+        </tr>
+
+        <tr>
+            <td>Reserved on Cortex-M4.</td>
+            <td>Reserved on Cortex-M4.</td>
+            <td>Disable instruction folding.</td>
+            <td>Disable write buffer.</td>
+            <td>Disable multi-cycle interrupt.</td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+<br/>
+
+5. Bit 0 - DISMCYCINT
+
+<ul>
+    <li>0 (default): An interrupt can preempt the CPU even while it’s in the middle of a multi-cycle instruction.</li>
+    <li>1 : Prevents interrupts from interrupting multi-cycle instructions — the CPU finishes the instruction first.</li>
+</ul>
+
+&nbsp;&nbsp;&nbsp;&nbsp; Useful in some real-time or debug environments. Normally you leave it as default.
+
+<br/>
+<br/>
+
+6. Bit 1 - DISDEFWBUF
+
+<ul>
+    <li>0 (default): Inside every Cortex-M CPU, between the core (that executes your instructions) and the bus (that talks to memory and peripherals), there is a tiny write buffer. The Cortex-M4 uses its small write buffer to improve memory throughput.</li>
+    <li>1 : All writes complete before continuing.</li>
+</ul>
+
+&nbsp;&nbsp;&nbsp;&nbsp; Setting this slows performance but can make debugging or tightly timed peripheral writes more predictable.
+
+<br/>
+<br/>
+
+7. Bit 2 - DISFOLD
+
+<ul>
+    <li>0 (default): Enables "folding", an optimization that lets some Thumb instructions overlap in execution (effectively shortening pipelines).</li>
+    <li>1 : Disables folding, which makes execution timing more predictable but slower.</li>
+</ul>
+
+&nbsp;&nbsp;&nbsp;&nbsp; Used when you want deterministic timing — for example, cycle-accurate benchmarking or safety-critical analysis.
+
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="cpuid"> CPUID base register (<a href="#scb-summary">CPUID</a>)</h3>
+
+<ol>
+    <li>Address offset: 0x00 (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>Value on reset: <code>0x410F C241</code></li>
+    <br/>
+    <li>The CPUID register is <u>32-bit</u> and contains the processor part number, version and implemention information.</li>
+    <br/>
+    <li>Mapping.</li>
+    <br/>
+<table>
+    <thead>
+        <tr>
+            <th>Bits 31 ~ 24</th>
+            <th>Bits 23 ~ 20</th>
+            <th>Bits 19 ~ 16</th>
+            <th>Bits 15 ~ 4 </th>
+            <th>Bits 3  ~ 0 </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Implementer</td>
+            <td>Variant</td>
+            <td>Constant</td>
+            <td>PartNo</td>
+            <td>Revision</td>
+        </tr>
+
+        <tr>
+            <td>Implementer Code. (0x41 - Arm)</td>
+            <td>Variant Number. The <code>r</code> value in the <code>rnpn</code> product revision identifier. (0x0 - revision 0)</td>
+            <td>Constant Value. (reads as 0xF)</td>
+            <td>Part Number of the Processor. (0x0C24 - Cortex-M4)</td>
+            <td>Revision Number. The <code>p</code> value in the <code>rnpn</code> product revision identifier. (0x1 - patch 1)</td>
+        </tr>
+    </tbody>
+</table>
+</ol>
+
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="icsr"> Interrupt Control and State Register (<a href="#scb-summary">ICSR</a>)</h3>
+<ol>
+
+    <li>Address offset: 0x04 (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+
+    <li>It gives you status information about:</li>
+    <ul>
+        <li>which exception is running.</li>
+        <li>whether an interrupt is pending.</li>
+        <li>whether an interrupt can be pended or cleared by software, and it also lets you trigger exceptions <u>manually</u>.</li>
+    </ul>
+    <br/>
+
+    <li>Mapping:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bit 31</th>
+                <th>Bits 30, 29</th>
+                <th>Bit 28</th>
+                <th>Bit 27</th>
+                <th>Bit 26</th>
+                <th>Bit 25</th>
+                <th>Bits 24, 23</th>
+                <th>Bit 22</th>
+                <th>Bits 21, 20, 19</th>
+                <th>Bits 18 ~ 12</th>
+                <th>Bit 11</th>
+                <th>Bits 10, 9</th>
+                <th>Bits 8 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>NMIPENDSET (rw)</td>
+                <td>Reserved</td>
+                <td>PENDSVSET (rw)</td>
+                <td>PENDSVCLR (w)</td>
+                <td>PENDSTSET (rw)</td>
+                <td>PENDSTCLR (w)</td>
+                <td>Reserved</td>
+                <td>ISRPENDING (r)</td>
+                <td>Reserved</td>
+                <td>VECTPENDING[6:0] (r)</td>
+                <td>RETOBASE (r)</td>
+                <td>Reserved</td>
+                <td>VECTACTIVE[8:0] (rw)</td>
+            </tr>
+
+            <tr>
+                <td>NMI set-pending bit.</td>
+                <td> ... </td>
+                <td>PendSV set-pending bit.</td>
+                <td>PendSV clear-pending bit. This bit is write-only. On a read, value is unknown.</td>
+                <td>SysTick exception set-pending bit.</td>
+                <td>SysTick exception clear-pending bit. Write-only. On a read, value is unknown.</td>
+                <td>Bit-24 is reserved but must be kept zero; Bit-23 is read-as-zero when the processor is not in Debug.</td>
+                <td>Interrupt Service Routine Pending flag, excluding NMI and Faults.</td>
+                <td>Reserved but must be kept zero.</td>
+                <td>Pending vector. Indicates an exception number of the highest priority level pending enabled exception.</td>
+                <td>Return to base level. Indicates whethere there are preempted active exceptions.</td>
+                <td> ... </td>
+                <td>Active vector. Contains the active exception number.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+
+    <li>NMIPENDSET</li>
+    <ul>
+        <br/>
+        <li>Write 0: No effect.</li>
+        <br/>
+        <li>Write 1: Pends an NMI (exactly as if hardware asserted the NMI signal).</li>
+        <br/>
+        <li>Read 0: The NMI is not pending.</li>
+        <br/>
+        <li>Read 1: The NMI is pending.</li>
+        <br/>
+        <li>Entering the handler clears this bit to zero.</li>
+    </ul>
+    <br/>
+    <br/>
+
+    <li>PENDSVSET</li>
+    <ul>
+        <br/>
+        <li>PendSV = <u>Pendable Servie Call.</u> Exception number 14, triggered by software.</li>
+        <br/>
+        <li>Write 0: No effect.</li>
+        <br/>
+        <li>Write 1: Change PendSV exception state to pending.</li>
+        <br/>
+        <li>Read 0: PendSV exception is not pending.</li>
+        <br/>
+        <li>Read 1: PendSV exception is  pending.</li>
+        <br/>
+    </ul>
+    <br/>
+    <br/>
+
+    <li>PENDSVCLR</li>
+    <ul>
+        <br/>
+        <li>Write 0: No effect.</li>
+        <br/>
+        <li>Write 1: Removes the pending state from the PendSV exception.</li>
+        <br/>
+    </ul>
+    <br/>
+    <br/>
+
+    <li>PENDSTSET</li>
+    <li>PENDSTCLR</li>
+    <ul>
+        <br/>
+        <li>Similar to <b>PENDSVSET</b> and <b>PENDSVCLR</b>, but for <u>SysTick</u> exception.</li>
+        <br/>
+    </ul>
+    <br/>
+    <br/>
+
+    <li>ISRPENDING</li>
+    <ul>
+        <br/>
+        <li>Read 0: No interrupt is pending.</li>
+        <br/>
+        <li>Read 1: At least one interrupt is pending.</li>
+        <br/>
+    </ul>
+    <br/>
+    <br/>
+
+    <li>VECTPENDING</li>
+    <ul>
+        <br/>
+        <li> Read 0: No pending exceptions.</li>
+        <br/>
+        <li> Other Values: The exception number of the highest priority pending enabled exception.</li>
+    </ul>
+    <br/>
+    <br/>
+
+    <li>RETOBASE</li>
+    <ul>
+        <br/>
+        <li>Read 0: There are preempted active exceptions to execute..</li>
+        <br/>
+        <li>Read 1: There are no active exceptions, or the currently-executing exception is the only active exception..</li>
+        <br/>
+    </ul>
+    <br/>
+    <br/>
+
+    <li>VECTACTIVE</li>
+    <ul>
+        <br/>
+        <li> Read 0: Thread mode.</li>
+        <br/>
+        <li> Other Values: The exception number of the currently active exception.</li>
+        <br/>
+        <li><mark>NOTE</mark>: Subtract <u>16</u> from this value to obtain <u>CMSIS IRQ Number</u> required
+            to index into the Interrupt Clear-Enable, Set-Enable, Clear-Pending, Set-Pending, or Priority Registers.
+        e.g., 18 = IRQ2</li>
+    </ul>
+    <br/>
+    <br/>
+
+
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="vtor"> Vector Table Offset Register (<a href="#scb-summary">VTOR</a>)</h3>
+<ol>
+    <li>Address offset: 0x08 (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>Mapping:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31, 30</th>
+                <th>Bits 29 ~ 9</th>
+                <th>Bits 8 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td><b>TBLOFF[29:9]</b> (rw)</td>
+                <td>Reserved.</td>
+            </tr>
+            <tr>
+                <td>Must be kept cleared.</td>
+                <td>Vector Table Base Offset. <br/> It contains bits [29:9] of the offset of the table base from memory address 0x00000000.</td>
+                <td>Must be kept cleared.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <li>TBLOFF</li>
+    <ul>
+        <li> When setting TBLOFF,
+             you must align the offset to the number of exception entries in the vector table.
+             The minimum alignment is 128 words.
+             Table alignment requirements mean that bits[8:0] of the table offset are always zero.</li>
+        <br/>
+        <li>Bit-29 (TBLBASE) determines whether the vector table is in the code (0) or SRAM (1) memory region.</li>
+    </ul>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="aircr"> Application Interrupt and Reset Control Register (<a href="#scb-summary">AIRCR</a>)</h3>
+<ol>
+    <li>Address offset: 0x0C (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>Value on reset: <code>0xFA05 0000</code></li>
+    <br/>
+    <li>Mapping:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 16</th>
+                <th>Bit 15</th>
+                <th>Bits 14 ~ 11</th>
+                <th>Bits 10, 9, 8</th>
+                <th>Bits 7 ~ 3</th>
+                <th>Bit 2</th>
+                <th>Bit 1</th>
+                <th>Bit 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>VECTKEYSTAT[15:0] (read) / VECTKEY[15:0] (write)</td>
+                <td>ENDIANESS (r)</td>
+                <td>Reserved.</td>
+                <td>PRIGROUP[2:0] (rw)</td>
+                <td>Reserved.</td>
+                <td>SYS<br/>RESET<br/>REQ<br/>(w)</td>
+                <td>VECT<br/>CLR<br/>ACTIVE<br/>(w)</td>
+                <td>VECT<br/>RESET<br/>(w)</td>
+            </tr>
+
+            <tr>
+                <td>Register Key.<br/>
+                    Reads as <u>0xFA05</u><br/>
+                    On writes, write <u>0x05FA</u> to it, otherwise the write is ignored.</td>
+                <td>Data Endianess Bit. <br/>Reads as zero, indicating little-endian.</td>
+                <td>Must be kept cleared.</td>
+                <td>Interrupt Priority Grouping Field.<br/>
+                    This field determines how <span class="red-underline">NVIC</span> priority bits are split between group priority and subpriority..</td>
+                <td>Must be kept cleared.</td>
+                <td>System Reset Request.<br/>
+                    Writing 1 requests a system-level reset (it causes the entire device to be reset — just like a hardware reset).</td>
+                <td>Reserved for debug use. This bit reads as zero.<br/>
+                    When writing to the register you <u>must write 0</u> to this bit, otherwise behavior is unpredictable.</td>
+                <td>Reserved for debug use. This bit reads as zero.<br/>
+                    When writing to the register you <u>must write 0</u> to this bit, otherwise behavior is unpredictable.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="scr"> System Control Register (<a href="#scb-summary">SCR</a>)</h3>
+<ol>
+    <li>Address offset: 0x10 (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>Mapping:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 5</th>
+                <th>Bit 4</th>
+                <th>Bit 3</th>
+                <th>Bit 2</th>
+                <th>Bit 1</th>
+                <th>Bit 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>SEVON<br/>PEDN<br/>(rw)</td>
+                <td>Reserved.</td>
+                <td>SLEEP<br/>DEEP<br/>(rw)</td>
+                <td>SLEEP<br/>ON<br/>EXIT<br/>(rw)</td>
+                <td>Reserved.</td>
+            </tr>
+
+            <tr>
+                <td>Kept cleared.</td>
+                <td>Send Event on Pending bit.</td>
+                <td>Kept cleared.</td>
+                <td>Controls whether the processor uses sleep (0) or deep sleep (1) as its low power mode.</td>
+                <td>Configures sleep-on-exit when returning from Handler mode to Thread mode.<br/>
+                    0: Do not sleep when returning to Thread mode.<br/>
+                    1: Enter sleep, or deep sleep, on return from an interrupt service routine.</td>
+                <td>Kept cleared.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <li>SEVEONPEND</li>
+    <ul>
+        <li>When an event or interrupt enters pending state, the event signal wakes up the processor from WFE instruction.
+            If the processor is not waiting for an event, the event is registered and affects the next WFE.</li>
+        <li>0: Only enabled interrupts or events can wakeup the processor, disabled interrupts are excluded.</li>
+        <li>1: Enabled events and all interrupts, including disabled interrupts, can wakeup the processor.</li>
+    </ul>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="ccr"> Configuration and Control Register (<a href="#scb-summary">CCR</a>)</h3>
+<ol>
+    <li>Address offset: 0x14 (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>Mapping:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 10</th>
+                <th>Bit 9</th>
+                <th>Bit 8</th>
+                <th>Bits 7 ~ 5</th>
+                <th>Bit 4</th>
+                <th>Bit 3</th>
+                <th>Bit 2</th>
+                <th>Bit 1</th>
+                <th>Bit 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>STK<br/>ALIGN<br/>(rw)</td>
+                <td>BFHF<br/>NMIGN<br/>(rw)</td>
+                <td>Reserved.</td>
+                <td>DIV_0_TRP (rw)</td>
+                <td>UNALIGN_TRP (rw)</td>
+                <td>Reserved.</td>
+                <td>USER<br/>SET<br/>MPEND<br/>(rw)</td>
+                <td>NON<br/>BASE<br/>THRD<br/>ENA<br/>(rw)</td>
+            </tr>
+
+            <tr>
+                <td>Kept cleared.</td>
+                <td>Configures stack alignment on exception entry.</td>
+                <td>Enables (1) or disables (0) handlers with priority -1 or -2 to ignore data bus faults caused by load and store instructions.</td>
+                <td>Kept cleared.</td>
+                <td>0 : Do not trap divide by zero.<br/>
+                    1: Trap divide by zero.<br/>
+                    When this bit is set to 0, a divide by zero returns a quotient of 0.</td>
+                <td>0: Do not trap unaligned halfword and word accesses. <br/>
+                    1: Trap unaligned halfword and word accesses with a usage fault.<br/><br/>
+                    <mark>NOTE:</mark>Unaligned LDM, STM, LDRD, and STRD instructions always fault irrespective of whether it is set to 1.
+                </td>
+                <td>Kept cleared.</td>
+                <td>Enables (1) or disables (0) unprivileged software access to the <b>NVIC_STIR</b>.</td>
+                <td>0: Processor can enter Thread mode only when no exception is active.<br/>
+                    1: Processor can enter Thread mode from any level under the control of an <b>EXC_RETURN</b> value.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="shpr1"> System Handler Priority Registers (<a href="#scb-summary">SHPRx</a>)</h3>
+
+<ol>
+    <li>The SHPR1 ~ SHPR3 registers set the priority value, 0 to 255 of the exception handlers that have configurable priority.</li>
+    <br/>
+    <li>The SHPR1 ~ SHPR3 are <u>byte accessible</u>.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="shpr1"> System Handler Priority Register 1 (<a href="#scb-summary">SHPR1</a>)</h3>
+<ol>
+    <li>Address offset: 0x18 (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>Mapping:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 24</th>
+                <th>Bits 23 ~ 16</th>
+                <th>Bits 15 ~ 8</th>
+                <th>Bits 7 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>PRI_6[7:0]</td>
+                <td>PRI_5[7:0]</td>
+                <td>PRI_4[7:0]</td>
+            </tr>
+
+            <tr>
+                <td>Kept cleared.</td>
+                <td>Priority of system handler 6, usage fault.</td>
+                <td>Priority of system handler 5, bus fault.</td>
+                <td> Priority of system handler 4, memory management fault.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="shpr2"> System Handler Priority Register 2 (<a href="#scb-summary">SHPR2</a>)</h3>
+<ol>
+    <li>Address offset: 0x1C (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>Mapping:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 24</th>
+                <th>Bits 23 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>PRI_11[7:0]</td>
+            </tr>
+
+            <tr>
+                <td>Kept cleared.</td>
+                <td>Priority of system handler 11, SVCall.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="shpr3"> System Handler Priority Register 3 (<a href="#scb-summary">SHPR3</a>)</h3>
+<ol>
+    <li>Address offset: 0x20 (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>Mapping:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 24</th>
+                <th>Bits 23 ~ 16</th>
+                <th>Bits 15 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>PRI_15[7:0]</td>
+                <td>PRI_14[7:0]</td>
+                <td>Reserved.</td>
+            </tr>
+
+            <tr>
+                <td>Priority of system handler 15, SysTick exception.</td>
+                <td>Priority of system handler 14, PendSV.</td>
+                <td>Kept cleared.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="shcsr"> System Handler Control and State Register (<a href="#scb-summary">SHCSR</a>)</h3>
+<ol>
+    <li>Address offset: 0x24 (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>The SHCSR enables the system handlers, if you disable a system handler and the corresponding fault occurs, the processor treats the
+        fault as a <u>hard fault</u>.</li>
+    <br/>
+    <li>Enable bits, set to 1 to enable the exception, or set to 0 to disable the exception.</li>
+    <br/>
+    <li>Pending bits, read as 1 if the exception is pending, or as 0 if it is not pending.<br/>
+        You can write to these bits to change the pending status of the exceptions.</li>
+    <br/>
+    <li>Active bits, read as 1 if the exception is active, or as 0 if it is not active.<br/>
+        You can write to these bits to change the active status of the exceptions.</li>
+    <br/>
+    <li>Mapping:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 19</th>
+                <th>Bit 18</th>
+                <th>Bit 17</th>
+                <th>Bit 16</th>
+                <th>Bit 15</th>
+                <th>Bit 14</th>
+                <th>Bit 13</th>
+                <th>Bit 12</th>
+                <th>Bit 11</th>
+                <th>Bit 10</th>
+                <th>Bit 9</th>
+                <th>Bit 8</th>
+                <th>Bit 7</th>
+                <th>Bits 6 ~ 4</th>
+                <th>Bit 3</th>
+                <th>Bit 2</th>
+                <th>Bit 1</th>
+                <th>Bit 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>USG<br/>FAULT<br/>ENA<br/>(rw)</td>
+                <td>BUS<br/>FAULT<br/>ENA<br/>(rw)</td>
+                <td>MEM<br/>FAULT<br/>ENA<br/>(rw)</td>
+                <td>SV<br/>CALL<br/>PEND<br/>ED<br/>(rw)</td>
+                <td>BUS<br/>FAULT<br/>PEND<br/>ED<br/>(rw)</td>
+                <td>MEM<br/>FAULT<br/>PEND<br/>ED<br/>(rw)</td>
+                <td>USG<br/>FAULT<br/>PEND<br/>ED<br/>(rw)</td>
+                <td>SYS<br/>TICK<br/>ACT<br/>(rw)</td>
+                <td>PEND<br/>SV<br/>ACT<br/>(rw)</td>
+                <td>Reserved.</td>
+                <td>MONIT<br/>OR<br/>ACT<br/>(rw)</td>
+                <td>SV<br/>CALL<br/>ACT<br/>(rw)</td>
+                <td>Reserved.</td>
+                <td>USG<br/>FAULT<br/>ACT<br/>(rw)</td>
+                <td>Reserved.</td>
+                <td>BUS<br/>FAULT<br/>ACT<br/>(rw)</td>
+                <td>MEM<br/>FAULT<br/>ACT<br/>(rw)</td>
+            </tr>
+
+            <tr>
+                <td>Kept cleared.</td>
+                <td>Usage fault enable bit.</td>
+                <td>Bus fault enable bit.</td>
+                <td>Memory management fault enable bit.</td>
+                <td>SVC call pending bit.</td>
+                <td>Bus fault exception pending bit.</td>
+                <td>Memory management fault exception pending bit.</td>
+                <td>Usage fault exception pending bit.</td>
+                <td>SysTick exception active bit.</td>
+                <td>PendSV exception active bit.</td>
+                <td>Kept cleared.</td>
+                <td>Debug monitor active bit.</td>
+                <td>SVC call active bit.</td>
+                <td>Kept cleared.</td>
+                <td>Usage fault exception active bit.</td>
+                <td>Kept cleared.</td>
+                <td>Bus fault exception active bit.</td>
+                <td>Memory management fault exception active bit.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="cfsr">Configurable Fault Status Register  (<a href="#scb-summary">CFSR</a>)</h3>
+<ol>
+    <li>Address offset: 0x28 (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>It is made from <a href="#ufsr">UFSR</a> + <a href="#bfsr">BFSR</a> + <a href="#mmfsr">MMFSR</a>.</li>
+    <br/>
+    <li>The CFSR is <u>byte accessible</u>. You can access the CFSR or its subregisters as follows:</li>
+    <ul>
+        <br/>
+        <li>Access the <u>complete CFSR</u> with a <b>word</b> access to <code>0xE000 ED28</code></li>
+        <br/>
+        <li>Access the <u>MMFSR</u> with a <b>byte</b> access to <code>0xE000 ED28</code></li>
+        <br/>
+        <li>Access the <u>MMFSR and BFSR</u> with a <b>half-word</b> access to <code>0xE000 ED28</code></li>
+        <br/>
+        <li>Access the <u>BFSR</u> with a <b>byte</b> access to <code>0xE000 ED29</code></li>
+        <br/>
+        <li>Access the <u>UFSR</u> with a <b>half-word</b> access to <code>0xE000 ED2A</code></li>
+    </ul>
+    <br/>
+    <li>Mapping:</li>
+    <table>
+        <caption>CFSR Subregisters</caption>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 16</th>
+                <th>Bits 15 ~ 8</th>
+                <th>Bits 7 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>UFSR</td>
+                <td>BFSR</td>
+                <td>MMFSR</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <table>
+        <caption>CFSR Details</caption>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 26</th>
+                <th>Bit 25</th>
+                <th>Bit 24</th>
+                <th>Bits 23 ~ 20</th>
+                <th>Bit 19</th>
+                <th>Bit 18</th>
+                <th>Bit 17</th>
+                <th>Bit 16</th>
+                <th>Bit 15</th>
+                <th>Bit 14</th>
+                <th>Bit 13</th>
+                <th>Bit 12</th>
+                <th>Bit 11</th>
+                <th>Bit 10</th>
+                <th>Bit 9</th>
+                <th>Bit 8</th>
+                <th>Bit 7</th>
+                <th>Bit 6</th>
+                <th>Bit 5</th>
+                <th>Bit 4</th>
+                <th>Bit 3</th>
+                <th>Bit 2</th>
+                <th>Bit 1</th>
+                <th>Bit 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>DIVBY<br/>ZERO<br/>(rc_w1)</td>
+                <td>UNALIGNED<br/>(rc_w1)</td>
+                <td>Reserved.</td>
+                <td>NOCP<br/>(rc_w1)</td>
+                <td>INVPC<br/>(rc_w1)</td>
+                <td>INV<br/>STATE<br/>(rc_w1)</td>
+                <td>UNDEF<br/>INSTR<br/>(rc_w1)</td>
+                <td>BFAR<br/>VALID<br/>(rw)</td>
+                <td>Reserved.</td>
+                <td>LSP<br/>ERR<br/>(rw)</td>
+                <td>STK<br/>ERR<br/>(rw)</td>
+                <td>UNSTK<br/>ERR<br/>(rw)</td>
+                <td>IMPRECIS<br/>ERR<br/>(rw)</td>
+                <td>PRECIS<br/>ERR<br/>(rw)</td>
+                <td>IBUS<br/>ERR<br/>(rw)</td>
+                <td>MMAR<br/>VALID<br/>(rw)</td>
+                <td>Reserved.</td>
+                <td>MLSP<br/>ERR<br/>(rw)</td>
+                <td>MSTK<br/>ERR<br/>(rw)</td>
+                <td>MUNSTK<br/>ERR<br/>(rw)</td>
+                <td>Reserved.</td>
+                <td>DACC<br/>VIOL<br/>(rw)</td>
+                <td>IACC<br/>VIOL<br/>(rw)</td>
+            </tr>
+
+            <tr>
+                <td>Kept cleared.</td>
+                <td>Divide by zero usage fault.<br/>
+                    0: No divide by zero fault, or divide by zero trapping not enabled.<br/>
+                    1: The processor has executed an SDIV or UDIV instruction with a divisor of 0.
+                </td>
+                <td>Unaligned access usage fault.<br/>
+                    (Unaligned LDM, STM, LDRD, and STRD instructions always fault irrespective of the setting of UNALIGN_TRP.)<br/>
+                    0: No unaligned access fault, or unaligned access trapping not enabled.<br/>
+                    1: the processor has made an unaligned memory access.
+                </td>
+                <td>Kept cleared.</td>
+                <td>No coprocessor usage fault.<br/>
+                    0: No usage fault caused by attempting to access a coprocessor.<br/>
+                    1: the processor has attempted to access a coprocessor.</td>
+                <td>Invalid PC load usage fault, caused by an invalid PC load by <b>EXC_RETURN</b>.<br/>
+                    0: No invalid PC load usage fault.<br/>
+                    1: The processor has attempted an illegal load of EXC_RETURN to the PC, as a result of an invalid context, or an invalid EXC_RETURN value.</td>
+                <td>Invalid state usage fault.<br/>
+                    0: No invalid state usage fault.<br/>
+                    1: The processor has attempted to execute an instruction that makes illegal use of the EPSR.</td>
+                <td>Undefined instruction usage fault.<br/>
+                    0: No undefined instruction usage fault.<br/>
+                    1: The processor has attempted to execute an undefined instruction.</td>
+                <td>Bus Fault Address Register (BFAR) valid flag.</td>
+                <td>Kept cleared.</td>
+                <td>Bus fault on floating-point lazy state preservation.<br/>
+                    0: No bus fault occurred during floating-point lazy state preservation.<br/>
+                    1: A bus fault occurred during floating-point lazy state preservation.</td>
+                <td>Bus fault on stacking for exception entry.<br/>
+                    0: No stacking fault.<br/>
+                    1: Stacking for an exception entry has caused one or more bus faults.</td>
+                <td>Bus fault on unstacking for a return from exception.<br/>
+                    0: No unstacking fault.<br/>
+                    1: Unstack for an exception return has caused one or more bus faults.</td>
+                <td>Imprecise data bus error.<br/>
+                    0: No imprecise data bus error.<br/>
+                    1: A data bus error has occurred, but the return address in the stack frame is not related to the instruction that caused the error.</td>
+                <td>Precise data bus error.<br/>
+                    0: No precise data bus error.<br/>
+                    1: A data bus error has occurred, and the PC value stacked for the exception return points to the instruction that caused the fault.</td>
+                <td>Instruction bus error.<br/>
+                    0: No instruction bus error.<br/>
+                    1: Instruction bus error.</td>
+                <td>Memory Management Fault Address Register (MMAR) valid flag.<br/>
+                    0: Value in MMAR is not a valid fault address.<br/>
+                    1: MMAR holds a valid fault address.</td>
+                <td>Kept cleared.</td>
+                <td>0: No MemManage fault occurred during floating-point lazy state preservation.<br/>
+                    1: A MemManage fault occurred during floating-point lazy state preservation.</td>
+                <td>Memory manager fault on stacking for exception entry.<br/>
+                    0: No stacking fault.<br/>
+                    1: Stacking for an exception entry has caused one or more access violations.</td>
+                <td>Memory manager fault on unstacking for a return from exception.<br/>
+                    0: No unstacking fault.<br/>
+                    1: Unstack for an exception return has caused one or more access violations.</td>
+                <td>Kept cleared.</td>
+                <td>Data access violation flag.<br/>
+                    0: No data access violation fault.<br/>
+                    1: The processor attempted a load or store at a location that does not permit the operation.</td>
+                <td>Instruction access violation flag.<br/>
+                    0: No instruction access violation fault.<br/>
+                    1: The processor attempted an instruction fetch from a location that does not permit execution.</td>
+            </tr>
+        </tbody>
+    </table>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="ufsr"> Usage Fault Status Register (<a href="#cfsr">UFSR</a>)</h3>
+<ol>
+    <li>This register is <u>16-bit</u>.</li>
+    <br/>
+    <li>INVPC</li>
+    <ul>
+        <li>When this bit is set to 1,
+            the PC value stacked for the exception return points to the instruction that tried to perform the illegal load of the PC.</li>
+    </ul>
+    <br/>
+    <li>INVSTATE</li>
+    <ul>
+        <li>When this bit is set to 1, the PC value stacked for the exception return points to the instruction that attempted the illegal use of the EPSR.</li>
+    </ul>
+    <br/>
+    <li>UNDEFINSTR</li>
+    <ul>
+        <li>When this bit is set to 1,
+            the PC value stacked for the exception return points to the undefined instruction.</li>
+        <li>An undefined instruction is an instruction that the processor cannot decode.</li>
+    </ul>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="bfsr"> Bus Fault Status Register (<a href="#cfsr">BFSR</a>)</h3>
+<ol>
+    <li>This register is <u>8-bit</u>.</li>
+    <br/>
+    <li>BFARVALID</li>
+    <ul>
+        <br/>
+        <li>The processor sets this bit to 1 after a bus fault where the address is known.<br/>
+            Other faults can set this bit to 0, such as a memory management fault occurring later.</li>
+        <br/>
+        <li>If a bus fault occurs and is escalated to a hard fault because of priority, the hard fault handler must set this bit to 0.<br/>
+            This prevents problems if returning to a stacked active bus fault handler whose BFAR value is overwritten.</li>
+        <br/>
+        <li>0: Value in BFAR is not a valid fault address.</li>
+        <br/>
+        <li>1: BFAR holds a valid fault address.</li>
+        <br/>
+    </ul>
+    <br/>
+    <li>STKERR</li>
+    <br/>
+    <ul>
+        <li>When the processor sets this bit to 1, the SP is still adjusted but the values in the context area (stack frame) on the stack might be incorrect.</li>
+        <li>The processor does not write a fault address to the BFAR.</li>
+        <br/>
+    </ul>
+    <br/>
+    <li>UNSTKERR</li>
+    <ul>
+        <br/>
+        <li>This fault is chained to the handler.</li>
+        <br/>
+        <li>This means that when the processor sets this bit to 1, the original return stack is still present.</li>
+        <br/>
+        <li>The processor does not adjust the SP from the failing return, does not performed a new save, and does not write a fault address to the BFAR.</li>
+        <br/>
+    </ul>
+    <br/>
+    <li>IBUSERR</li>
+    <ul>
+        <br/>
+        <li>The processor detects the instruction bus error on prefetching an instruction, but it sets this flag to 1 only if it attempts to issue the faulting instruction.</li>
+        <br/>
+        <li>When the processor sets this bit is 1, it does not write a fault address to the BFAR.</li>
+    </ul>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="mmfsr"> Memory Management Fault Address Register (<a href="#cfsr">MMFSR</a>)</h3>
+<ol>
+    <li>This register is <u>8-bit</u>.</li>
+    <br/>
+    <li>MMARVALID</li>
+    <ul>
+        <br/>
+        <li>If a memory management fault occurs and is escalated to a hard fault because of priority,
+            the hard fault handler must set this bit to 0.</li>
+        <br/>
+        <li>This prevents problems on return to a stacked active memory management fault handler whose MMAR value is overwritten.</li>
+        <br/>
+    </ul>
+    <br/>
+    <li>MSTKERR</li>
+    <ul>
+        <br/>
+        <li>When this bit is 1,
+            the SP is still adjusted but the values in the context area (stack frame) on the stack might be incorrect.</li>
+        <li>The processor has not written a fault address to the MMAR.</li>
+        <br/>
+    </ul>
+    <br/>
+    <li>MUNSTKERR</li>
+    <ul>
+        <br/>
+        <li>This fault is chained to the handler.</li>
+        <br/>
+        <li>This means that when this bit is 1, the original return stack is still present.</li>
+        <br/>
+        <li>The processor has not adjusted the SP from the failing return, and has not performed a new save.</li>
+        <br/>
+        <li>The processor has not written a fault address to the MMAR.</li>
+        <br/>
+    </ul>
+    <br/>
+    <li>DACCVIOL</li>
+    <ul>
+        <br/>
+        <li>When this bit is 1, the PC value stacked for the exception return points to the faulting instruction.</li>
+        <li>The processor has loaded the MMAR with the address of the attempted access.</li>
+    </ul>
+    <br/>
+    <li>IACCVIOL</li>
+    <ul>
+        <br/>
+        <li>This fault occurs on any access to an <u>XN region</u>, even the MPU is disabled or not present.</li>
+        <br/>
+        <li>When this bit is 1, the PC value stacked for the exception return points to the faulting instruction.<br/>
+            The processor has not written a fault address to the MMAR.</li>
+    </ul>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="hfsr"> Hard Fault Status Register (<a href="#scb-summary">HFSR</a>)</h3>
+<ol>
+    <li>Address offset: 0x2C (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>This register gives information about events that activate the hard fault handler.</li>
+    <br/>
+    <li>This register is read, write to clear.<br/>
+        This means that bits in the register read normally, but writing 1 to any bit clears that bit to 0.</li>
+    <br/>
+    <li>Mapping:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bit 31</th>
+                <th>Bit 30</th>
+                <th>Bits 29 ~ 2</th>
+                <th>Bit 1</th>
+                <th>Bit 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>DEBUG_VT<br/>(rc_w1)</td>
+                <td>FORCED<br/>(rc_w1)</td>
+                <td>Reserved.</td>
+                <td>VECTTBL<br/>(rc_w1)</td>
+                <td>Reserved.</td>
+            </tr>
+
+            <tr>
+                <td>Reserved for Debug use.<br/>
+                    When writing to the register you must write 0 to this bit, otherwise behavior is unpredictable.</td>
+                <td>Forced hard fault.<br/>
+                    0: No forced hard fault.<br/>
+                    1: Forced hard fault.</td>
+                <td>Kept cleared.</td>
+                <td>Vector table hard fault.<br/>
+                    0: No bus fault on vector table read.<br/>
+                    1: Bus fault on vector table read.</td>
+                <td>Kept cleared.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>FORCED</li>
+    <ul>
+        <br/>
+        <li>Indicates a forced hard fault,
+            generated by escalation of a fault with configurable priority that cannot be handled,
+            either because of priority or because it is disabled.</li>
+        <br/>
+        <li>When this bit is set to 1,
+            the hard fault handler must read the other fault status registers to find the cause of the fault.</li>
+    </ul>
+    <br/>
+    <br/>
+    <li>VECTTBL</li>
+    <ul>
+        <br/>
+        <li>Indicates a bus fault on a vector table read during exception processing.<br/>
+            This error is always handled by the hard fault handler.</li>
+        <br/>
+        <li>When this bit is set to 1,
+            the PC value stacked for the exception return points to the instruction that was preempted by the exception.</li>
+    </ul>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="mmfar"> Memory Management Fault Address Register (<a href="#scb-summary">MMFAR</a>)</h3>
+<ol>
+    <li>Address offset: 0x34 (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>This register is <u>32-bit</u></li>
+    <br/>
+    <li>When the <u>MMARVALID</u> bit of the <b>MMFSR</b> is set to 1,
+        this field holds the address of the location that generated the memory management fault.</li>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="bfar"> Bus Fault Address Register (<a href="#scb-summary">BFAR</a>)</h3>
+<ol>
+    <li>Address offset: 0x38 (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>This register is <u>32-bit</u></li>
+    <br/>
+    <li>When the <u>BFARVALID</u> bit of the <b>BFSR</b> is set to 1,
+        this field holds the address of the location that generated the bus fault.</li>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="afsr"> Auxiliary Fault Status Register (<a href="#scb-summary">AFSR</a>)</h3>
+<ol>
+    <li>Address offset: 0x3C (base adress = <code>0xE000 ED00</code>)</li>
+    <br/>
+    <li>This register is <u>32-bit</u></li>
+    <br/>
+    <li>It is not often used in simple projects,
+        but it plays an important role for debugging, external fault sources, and vendor-specific extensions.</li>
+    <br/>
+    <li>Each bit can be set by implementation-specific logic to indicate auxiliary fault sources.</li>
+    <br/>
+    <li>The meaning of these bits is vendor-specific. Some MCUs never set them at all (always 0).</li>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> SysTick timer (<u>STK</u>) </h3>
+
+1. <span id="stk-summary">Summary</span>:
+<br/>
+<br/>
+<table>
+    <thead>
+        <tr>
+            <th>Address</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Required Privilege</th>
+            <th>Value on Reset</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code> 0xE000 E010 </code></td>
+            <td>STK_CTRL &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#stk-ctrl">(goto)</a></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><b>0x00000000</b></td>
+        </tr>
+
+
+        <tr>
+            <td><code> 0xE000 E014 </code></td>
+            <td>STK_LOAD &nbsp;&nbsp;&nbsp;&nbsp; <a href="#stk-load">(goto)</a></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><b>Unknown</b></td>
+        </tr>
+
+
+        <tr>
+            <td><code> 0xE000 E018 </code></td>
+            <td>STK_VAL &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="#stk-val">(goto)</a></td>
+            <td>RW</td>
+            <td>Privileged</td>
+            <td><b>Unknown</b></td>
+        </tr>
+
+
+        <tr>
+            <td><code> 0xE000 E01C </code></td>
+            <td>STK_CALIB &nbsp;&nbsp;&nbsp; <a href="#stk-calib">(goto)</a></td>
+            <td>RO</td>
+            <td>Privileged</td>
+            <td><b>0xC0000000</b></td>
+        </tr>
+
+    </tbody>
+</table>
+
+<br/><br/>
+
+2.  The processor has a <u>24-bit</u> system timer, SysTick,
+    that <u>counts down</u> from the reload value to zero,
+    reloads (wraps to) the value in the STK_LOAD register on the next clock edge,
+    then counts down on subsequent clocks.
+
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="stk-ctrl"> SysTick Control and Status Register (<a href="#stk-summary">STK_CTRL</a>)</h3>
+<ol>
+    <li>Address offset: 0x00 (base adress = <code>0xE000 ED10</code>)</li>
+    <br/>
+    <li>This register is <u>32-bit</u></li>
+    <br/>
+    <li>Mapping</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 17</th>
+                <th>Bit 16</th>
+                <th>Bits 15 ~ 3</th>
+                <th>Bit 2</th>
+                <th>Bit 1</th>
+                <th>Bit 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>COUNTFLAG<br/>(rw)</td>
+                <td>Reserved.</td>
+                <td>CLKSOURCE<br/>(rw)</td>
+                <td>TICKINT<br/>(rw)</td>
+                <td>ENABLE<br/>(rw)</td>
+            </tr>
+
+            <tr>
+                <td>Kept cleared.</td>
+                <td>Returns 1 if timer counted to 0 since last time this was read.</td>
+                <td>Kept cleared.</td>
+                <td>Selects the clock source.<br/>
+                    0: AHB/8<br/>
+                    1: Processor clock (AHB)</td>
+                <td>SysTick exception request enable.<br/>
+                    0: Counting down to zero does not assert the SysTick exception request.<br/>
+                    1: Counting down to zero to asserts the SysTick exception request.</td>
+                <td>Counter enable (1) or disable (1)</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>ENABLE</li>
+    <ul>
+        <br/>
+        <li>When ENABLE is set to 1, the counter loads the RELOAD value from the LOAD register and then counts down.<br/>
+            On reaching 0, it sets the COUNTFLAG to 1 and optionally asserts the SysTick depending on the value of TICKINT.
+            It then loads the RELOAD value again, and begins counting.</li>
+    </ul>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="stk-load"> SysTick Reload Value Register (<a href="#stk-summary">STK_LOAD</a>)</h3>
+<ol>
+    <li>Address offset: 0x04 (base adress = <code>0xE000 ED10</code>)</li>
+    <br/>
+    <li>This register is <u>32-bit</u></li>
+    <br/>
+    <li>Mapping</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 24</th>
+                <th>Bits 23 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>RELOAD[23:0]<br/>(rw)</td>
+            </tr>
+
+            <tr>
+                <td>Kept cleared.</td>
+                <td>RELOAD value.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>RELOAD</li>
+    <ul>
+        <br/>
+        <li>The RELOAD value can be any value in the range 0x00000001 ~ 0x00FFFFFF.<br/>
+            A start value of 0 is possible, but has no effect.<br/>
+            Because the SysTick exception request and COUNTFLAG are activated when counting from 1 to 0.</li>
+        <br/>
+        <li>To generate a multi-shot timer with a period of <b>N</b> processor clock cycles, use a RELOAD value of <b>N - 1</b>.<br/>
+            For example, if the SysTick interrupt is required every 100 clock pulses, set RELOAD to 99.</li>
+        <br/>
+        <li>To deliver a single SysTick interrupt after a delay of <b>N</b> processor clock cycles, use a RELOAD of value <b>N - 1</b>.<br/>
+            For example, if a SysTick interrupt is required after 100 clock pulses, set RELOAD to 99.</li>
+    </ul>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="stk-val"> SysTick Current Value Register (<a href="#stk-summary">STK_VAL</a>)</h3>
+<ol>
+    <li>Address offset: 0x08 (base adress = <code>0xE000 ED10</code>)</li>
+    <br/>
+    <li>This register is <u>32-bit</u></li>
+    <br/>
+    <li>Mapping</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 24</th>
+                <th>Bits 23 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>CURRENT[23:0]<br/>(rw)</td>
+            </tr>
+
+            <tr>
+                <td>Kept cleared.</td>
+                <td>Current Counter Value.<br/>
+                    A write of any value clears the field to 0, and also clears the COUNTFLAG bit in the STK_CTRL register to 0.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3 id="stk-calib"> SysTick Calibration Value Register (<a href="#stk-summary">STK_CALIB</a>)</h3>
+<ol>
+    <li>Address offset: 0x0C (base adress = <code>0xE000 ED10</code>)</li>
+    <br/>
+    <li>This register is <u>32-bit</u></li>
+    <br/>
+    <li>This register indicates the SysTick calibration properties.</li>
+    <br/>
+    <li>Mapping</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bit 31</th>
+                <th>Bit 30</th>
+                <th>Bits 29 ~ 24</th>
+                <th>Bits 23 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>NOREF<br/>(r)</td>
+                <td>SKEW<br/>(r)</td>
+                <td>Reserved.</td>
+                <td>TENMS[23:0]<br/>(r)</td>
+            </tr>
+
+            <tr>
+                <td>NOREF flag.
+                    Indicates whether a reference clock (external to the processor) is provided.<br/>
+                    0: A reference clock (external or internal) is available — TENMS field is valid.<br/>
+                    1: No reference clock is provided; TENMS is not valid.</td>
+                <td>SKEW flag.
+                    Indicates whether the 10 ms reference value in TENMS is exact (0) or only approximate (1).</td>
+                <td>Kept cleared.</td>
+                <td>Calibration value.<br/>
+                    Contains the number of SysTick clock cycles required to generate <u>exactly 10 ms</u> of time at the reference clock frequency.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>TENMS</li>
+    <ul>
+        <br/>
+        <li>This value is product dependent, please refer to the Product Reference Manual, SysTick Calibration Value section.</li>
+        <br/>
+        <li>If SysTick clock = 1 MHz (1 µs per tick) then TENMS = 10 000 (0x002710)</li>
+        <br/>
+        <li>If SysTick clock = 100 MHz then TENMS = 1 000 000 (0x0F4240)</li>
+        <br/>
+        <li>RELOAD = (TENMS / 10ms) * t<sub>desired</sub></li>
+        <ul>
+            <li>For 1ms tick: RELOAD = TENMS / 10ms * 1ms</li>
+            <li>For 100 µs tick: RELOAD = TENMS / 10ms * 0.1ms</li>
+        </ul>
+    </ul>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> FPU </h3>
+
+Will be covered in the future...
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Processor Modes </h3>
+<ol>
+    <li>Thread mode.</li>
+    <ul>
+        <br/>
+        <li>Used to execute application software.</li>
+        <br/>
+        <li>The processor enters Thread mode when it comes out of reset.</li>
+        <br/>
+        <li>The CONTROL register controls whether software execution in Thread mode is privileged or unprivileged.</li>
+    </ul>
+    <br/>
+    <br/>
+    <li>Handler mode.</li>
+    <ul>
+        <br/>
+        <li>Used to handle exceptions.</li>
+        <br/>
+        <li>The processor returns to Thread mode when it has finished exception processing.</li>
+        <br/>
+        <li>Software execution in Handler mode is <u>always privileged</u>.</li>
+    </ul>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Privilege Levels </h3>
+<ol>
+    <li>Unprivileged.</li>
+    <ul>
+        <br/>
+        <li>Has limited access to the MSR and MRS instructions, and cannot use the CPS instruction.</li>
+        <br/>
+        <li>Cannot access the system timer, NVIC, or system control block.</li>
+        <br/>
+        <li>Might have restricted access to memory or peripherals.</li>
+        <br/>
+        <li>Must use the SVC instruction to make a supervisor call to transfer control to privileged software.</li>
+    </ul>
+    <br/>
+    <br/>
+    <li>Privileged.</li>
+    <ul>
+        <br/>
+        <li>Privileged software executes at the privileged level and can use all the instructions and has access to all resources.</li>
+        <br/>
+        <li>Can write to the CONTROL register to change the privilege level for software execution.</li>
+    </ul>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Core Registers </h3>
+<ol>
+    <li>Low general-purpose registers:</li>
+    <ul>
+        <br/>
+        <li>R0</li>
+        <li>R1</li>
+        <li>R2</li>
+        <li>R3</li>
+        <li>R4</li>
+        <li>R5</li>
+        <li>R6</li>
+        <li>R7</li>
+    </ul>
+    <br/>
+    <br/>
+    <li>High general-purpose registers:</li>
+    <ul>
+        <br/>
+        <li>R8</li>
+        <li>R9</li>
+        <li>R10</li>
+        <li>R11</li>
+        <li>R12</li>
+    </ul>
+    <br/>
+    <br/>
+    <li id="sp"><b>SP</b> (R13)</li>
+    <ul>
+        <li>PSP</li>
+        <li>MSP (Privileged)</li>
+    </ul>
+    <br/>
+    <li id="lr"><b>LR</b> (R14)</li>
+    <ul>
+        <li>Reset value: <code>0xFFFF FFFF</code></li>
+    </ul>
+    <br/>
+    <li id="pc"><b>PC</b> (R15)</li>
+    <br/>
+    <li id="psr">PSR</li>
+    <ul>
+        <li>Reset value: <code>0x0100 FFFF</code></li>
+        <li id="apsr">Application Program Status Register (<u>APSR</u>)</li>
+        <li id="ipsr">Interrupt Program Status Register (<u>IPSR</u>)</li>
+        <li id="epsr">Execution Program Status Register (<u>EPSR</u>)</li>
+    </ul>
+    <br/>
+    <li id="primask">PRIMASK</li>
+    <br/>
+    <li id="faultmask">FAULTMASK</li>
+    <br/>
+    <li id="basepri">BASEPRI</li>
+    <br/>
+    <li id="control">CONTROL</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Stack Pointer (<a href="#sp">SP</a>) </h3>
+<ol>
+    <li>The Stack Pointer (SP) is register R13.</li>
+    <br/>
+    <li>In Thread mode, <u>1st-bit</u> of the CONTROL register indicates the stack pointer to use either <b>MSP</b> (0) or <b>PSP</b> (1)</li>
+    <br/>
+    <li>In Handler mode, the stack pointer is always <b>MSP</b>.</li>
+    <br/>
+    <li>On reset, the processor loads the <b>MSP</b> with the value from address 0x0000 0000.</li>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Link Register (<a href="#lr">LR</a>) </h3>
+<ol>
+    <li>The Link Register (LR) is register R14.</li>
+    <br/>
+    <li>It stores the return information for subroutines, function calls, and exceptions.</li>
+    <br/>
+    <li>On reset, the processor loads the LR value 0xFFFF FFFF.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Program Counter (<a href="#pc">PC</a>) </h3>
+<ol>
+    <li>The Program Counter (PC) is register R15.</li>
+    <br/>
+    <li>It holds the address of the next instruction to execute..</li>
+    <br/>
+    <li>On reset, the processor loads the PC with the value of the reset vector, which is at address 0x0000 0004.</li>
+    <br/>
+    <li><u>0th-bit</u> of the value is loaded into the <b>EPSR</b> <u>T-bit</u> at reset and must be 1.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Program Status Register (<a href="#psr">PSR</a>)</h3>
+<ol>
+    <li>Mapping:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bit 31</th>
+                <th>Bit 30</th>
+                <th>Bit 29</th>
+                <th>Bit 28</th>
+                <th>Bit 27</th>
+                <th>Bits 26, 25</th>
+                <th>Bit 24</th>
+                <th>Bits 23 ~ 20</th>
+                <th>Bits 19 ~ 16</th>
+                <th>Bits 15 ~ 10</th>
+                <th>Bit 9</th>
+                <th>Bits 8 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>N</td>
+                <td>Z</td>
+                <td>C</td>
+                <td>V</td>
+                <td>Q</td>
+                <td>ICI/IT</td>
+                <td>T</td>
+                <td>Reserved.</td>
+                <td>GE[3:0]</td>
+                <td>ICI/IT</td>
+                <td>Reserved.</td>
+                <td>ISR_NUMBER</td>
+            </tr>
+
+            <tr>
+                <td>0: Operation result was positive, zero, greater than, or equal.<br/>
+                    1: Operation result was <u>negative</u> or <u>less than</u>.</td>
+                <td>0: Operation result was not zero.<br/>
+                    1: Operation result was <u>zero</u>.</td>
+                <td>0: Add operation did not result in a carry bit or subtract operation resulted in a borrow bit.<br/>
+                    1: Add operation resulted in a <u>carry bit</u> or subtract operation did <u>not</u> result in a <u>borrow bit</u>.</td>
+                <td>0: Operation did not result in an overflow.<br/>
+                    1: Operation resulted in an <u>overflow</u>.</td>
+                <td>Saturation or Sticky Overflow flag.<br/>
+                    Could be cleared to zero by software using an <span class="hl-green-fg">MSR</span> instruction.</td>
+                <td><b>ICI</b>: Interruptible-continuable instruction bits.<br/>
+                    <b>IT</b>: Indicates the execution state bits of the If-Then instruction.</td>
+                <td>Thumb State Bit.</td>
+                <td> ... </td>
+                <td> Greater than or Equal flags</td>
+                <td>See before</td>
+                <td> ... </td>
+                <td>This is the number of the current exception.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>The <b>Q</b> flag is set by certain DSP (Digital Signal Processing) or saturating arithmetic instructions
+        when the result overflows its allowed range and gets saturated (clamped to the min/max value).<br/>
+        Once it becomes 1, it stays 1 until software explicitly clears it.</li>
+    <br/>
+    <br/>
+    <li>Mapping of <a href="#apsr">APSR</a>:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bit 31</th>
+                <th>Bit 30</th>
+                <th>Bit 29</th>
+                <th>Bit 28</th>
+                <th>Bit 27</th>
+                <th>Bits 26 ~ 20</th>
+                <th>Bits 19 ~ 16</th>
+                <th>Bits 15 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>N</td>
+                <td>Z</td>
+                <td>C</td>
+                <td>V</td>
+                <td>Q</td>
+                <td>Reserved.</td>
+                <td>GE[3:0]</td>
+                <td>Reserved.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>Mapping of <a href="#ipsr">IPSR</a>:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 9</th>
+                <th>Bits 8 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>ISR_NUMBER</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>Mapping of <a href="#epsr">EPSR</a>:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 27</th>
+                <th>Bits 26, 25</th>
+                <th>Bit 24</th>
+                <th>Bits 23 ~ 16</th>
+                <th>Bits 15 ~ 10</th>
+                <th>Bits 9 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>ICI/IT</td>
+                <td>T</td>
+                <td>Reserved.</td>
+                <td>ICI/IT</td>
+                <td>Reserved.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>Read all of the three registers with MRS instruction.<br/>
+        <code class="hl-green-fg">MRS &lt;R0 ~ R12&gt;, PSR</code></li>
+    <br/>
+    <li>Write to the APSR N, Z, C, V, and Q bits using APSR_nzcvq with the MSR instruction.<br/>
+        <code class="hl-green-fg">MSR APSR_nzcvq, &lt;R0 ~ R12&gt;</code></li>
+    <br/>
+    <li>When an interrupt occurs during the execution of an
+        <code>
+        <span class="hl-green-fg">LDM STM</span>,
+        <span class="hl-green-fg">PUSH</span>,
+        <span class="hl-green-fg">POP</span>,
+        <span class="hl-green-fg">VLDM</span>,
+        <span class="hl-green-fg">VSTM</span>,
+        <span class="hl-green-fg">VPUSH</span>,
+        </code>
+        or
+        <code>
+        <span class="hl-green-fg">VPOP</span>
+        </code>
+        instruction, the processor:</li>
+    <ul>
+        <br/>
+        <li>Stops the load multiple or store multiple instruction operation temporarily.</li>
+        <br/>
+        <li>Stores the next register operand in the multiple operation to <a href="#epsr">EPSR</a> <u>bits[15:12]</u>.</li>
+        <br/>
+    </ul>
+    After servicing the interrupt, the processor:
+    <ul>
+        <br/>
+        <li>Returns to the register pointed by <a href="#epsr">EPSR</a> <u>bits[15:12]</u>.</li>
+        <br/>
+        <li>Resumes execution of the multiple load and store instruction.</li>
+    </ul>
+    <br/>
+    <br/>
+    <li>When the <a href="#epsr">EPSR</a> holds <b>ICI</b> execution state, <u>bits[26:25, 11:10]</u> are zero</li>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> ISR_NUMBER </h3>
+<ul>
+    <li>0: Thread mode.</li>
+    <br/>
+    <li>1: Reserved.</li>
+    <br/>
+    <li>2: <b>NMI</b></li>
+    <br/>
+    <li>3: <b>Hard fault</b>.</li>
+    <br/>
+    <li>4: <b>Memory management fault</b>.</li>
+    <br/>
+    <li>5: <b>Bus fault</b>.</li>
+    <br/>
+    <li>6: <b>Usage fault</b>.</li>
+    <br/>
+    <li>7 ~ 10: Reserved.</li>
+    <br/>
+    <li>11: <b>SVCall</b></li>
+    <br/>
+    <li>12: Reserved for Debug.</li>
+    <br/>
+    <li>13: Reserved.</li>
+    <br/>
+    <li>14: <b>PendSV</b></li>
+    <br/>
+    <li>15: <b>SysTick</b></li>
+    <br/>
+    <li>16: <u>IRQ0</u></li>
+    <li>17: <u>IRQ1</u></li>
+    <li>...</li>
+    <li>255: <u>IRQ240</u></li>
+</ul>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Priority Mask Register (<a href="#primask">PRIMASK</a>) </h3>
+<ol>
+    <li>The PRIMASK register enables / disables the activation of all exceptions with configurable priority.</li>
+    <br/>
+    <li>Exceptions except <span class="red-underline">NMI</span> and <span class="red-underline">HardFault</span> all have configurable priority.</li>
+    <br/>
+    <li>Bit Assignment:</li>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 1</th>
+                <th>Bit 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>PRIMASK</td>
+            </tr>
+
+            <tr>
+                <td>...</td>
+                <td>0: No effect.<br/>
+                    1: Prevents the activation of all exceptions with configurable priority.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Fault Mask Register (<a href="#faultmask">FAULTMASK</a>) </h3>
+<ol>
+    <li>The FAULTMASK register prevents activation of all exceptions except for Non-Maskable Interrupt (<span class="red-underline">NMI</span>).</li>
+    <br/>
+    <li>Bit Assignment:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 1</th>
+                <th>Bit 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>FAULTMASK</td>
+            </tr>
+
+            <tr>
+                <td>...</td>
+                <td>0: No effect.<br/>
+                    1: Prevents the activation of all exceptions except for NMI.</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <li>The processor clears the FAULTMASK bit to 0 on exit from any exception handler except the NMI handler.</li>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Base Priority Mask Register (<a href="#basepri">BASEPRI</a>) </h3>
+<ol>
+    <li>This register defines the minimum priority for exception processing.</li>
+    <br/>
+    <li>Bit Assignment:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 8</th>
+                <th>Bits 7 ~ 4</th>
+                <th>Bits 3 ~ 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>BASEPRI[7:4]</td>
+                <td>Reserved.</td>
+            </tr>
+
+            <tr>
+                <td>...</td>
+                <td>0x00: No effect.<br/>
+                    Non-Zero: The processor does not process any exception with a priority value greater than or equal to BASEPRI.</td>
+                <td>...</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li><u>bits[3:0]</u> of BASEPRI are reserved (always read as 0), and are NEVER used.</li>
+    <br/>
+    <li>If you wrote 0x0000 0010 to BASEPRI, it will mask priority greater than or equal to 1.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> CONTROL Register (<a href="#control">CONTROL</a>) </h3>
+<ol>
+    <li>This register controls the stack used and the privilege level for software execution
+        when the processor is in Thread mode and indicates whether the FPU state is active.</li>
+    <br/>
+    <li>Bit Assignment:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Bits 31 ~ 3</th>
+                <th>Bit 2</th>
+                <th>Bit 1</th>
+                <th>Bit 0</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Reserved.</td>
+                <td>FPCA</td>
+                <td>SPSEL</td>
+                <td>nPRIV</td>
+            </tr>
+
+            <tr>
+                <td>...</td>
+                <td>0: No floating-point context active.<br/>
+                    1: Floating-point context active.<br/>
+                    The Cortex-M4 uses this bit to determine whether to preserve floating-point state when processing an exception.</td>
+                <td>0: MSP is the current stack pointer.<br/>
+                    1: PSP is the current stack pointer.<br/>
+                    In Handler mode this bit reads as zero and ignores writes. The Cortex-M4 updates this bit automatically on exception return.
+                </td>
+                <td>Thread mode privilege level.<br/>
+                    0: Privileged.<br/>
+                    1: Unprivileged.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> The Cortex microcontroller software interface standard (CMSIS) </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Memory Map of Cortex-M4 </h3>
+<ol>
+    <li></li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th><code>0x00000000 ~ 0x1FFFFFFF</code></th>
+                <th><code>0x20000000 ~ 0x3FFFFFFF</code></th>
+                <th><code>0x40000000 ~ 0x5FFFFFFF</code></th>
+                <th><code>0x60000000 ~ 0x9FFFFFFF</code></th>
+                <th><code>0xA0000000 ~ 0xDFFFFFFF</code></th>
+                <th><code>0xE0000000 ~ 0xE00FFFFF</code></th>
+                <th><code>0xE0100000 ~ 0xFFFFFFFF</code></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Code<br/>(0.5 GB)</td>
+                <td id="sram">SRAM<br/>(0.5 GB)</td>
+                <td id="peripheral">Peripheral<br/>(0.5 GB)<br/>(XN)</td>
+                <td>External RAM<br/>(1.0 GB)</td>
+                <td>External Device<br/>(1.0 GB)<br/>(XN)</td>
+                <td>Private Peripheral Bus<br/>(1.0 MB)<br/>(XN)</td>
+                <td>Vendor-Specific Memory<br/>(511 MB)<br/>(XN)</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li><a href="#sram">SRAM</a> Bit Band:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th><code>0x20000000 ~ 0x200FFFFF</code></th>
+                <th><code>0x22000000 ~ 0x23FFFFFF</code></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bit Band Region<br/>(1MB)</td>
+                <td>Bit Band Alias<br/>(32MB)</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li><a href="#peripheral">Peripheral</a> Bit Band:</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th><code>0x40000000 ~ 0x400FFFFF</code></th>
+                <th><code>0x42000000 ~ 0x43FFFFFF</code></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bit Band Region<br/>(1MB)</td>
+                <td>Bit Band Alias<br/>(32MB)</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>Bit Band Region:</li>
+    <ul>
+        <li>Direct accesses to this memory range behave as memory access.</li>
+        <li>But this region is also <u>bit addressable</u> through Bit Band Alias..</li>
+    </ul>
+    <br/>
+    <br/>
+    <li>Bit Band Alias:</li>
+    <ul>
+        <li>Data accesses to this region are remapped to bit band region.</li>
+        <li>A write operation is performed as read-modify-write.</li>
+    </ul>
+    <br/>
+    <br/>
+    <li><pre><code>bit_word_offset = (byte_offset x 32) + (bit_number x 4)</code></pre>
+        <pre><code>bit_word_addr   = bit_band_base + bit_word_offset</code></pre></li>
+        <li>The alias word at 0x23FFFFED maps to bit[0] of the bit-band byte at 0x200FFFFF:<br/>
+            <code>0x23FFFFED = 0x22000000 + (0xFFFFF x 32) + (0 x 4)</code>.</li>
+    <br/>
+    <br/>
+    <li>Cortex-M4 is little-endian.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Exception States </h3>
+<ol>
+    <li>Inactive</li>
+    <br/>
+    <li>Pending</li>
+    <br/>
+    <li>Active</li>
+    <ul><li><mark>NOTE</mark>: An exception handler can interrupt the execution of another exception handler.<br/>In this case both exceptions are in the active state.</li></ul>
+    <br/>
+    <li>Active and pending</li>
+    <ul><li>The exception is being serviced by the processor and there is a pending exception from the same source.</li></ul>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Reset Exception Type </h3>
+<ol>
+    <li>Execution restarts as privileged execution in Thread mode.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> NMI </h3>
+<ol>
+    <li>It is permanently enabled and has a fixed priority of -2.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Hard Fault </h3>
+<ol>
+    <li>A hard fault is an exception that occurs because of an error during exception processing,
+        or because an exception cannot be managed by any other exception mechanism. </li>
+    <br/>
+    <li>Hard faults have a fixed priority of -1.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Memory Management Fault </h3>
+<ol>
+    <li>It occurs because of a memory protection related fault.</li>
+    <br/>
+    <li>The MPU or the fixed memory protection constraints determines this fault,
+        for both instruction and data memory transactions.</li>
+    <br/>
+    <li>This fault is used to abort instruction accesses to Execute Never (XN) memory regions.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Bus Fault </h3>
+<ol>
+    <li>It occurs because of a memory related fault for an instruction or data memory transaction.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Usage Fault </h3>
+<ol>
+    <li>It occurs in case of an instruction execution fault.<br/>
+        This includes:</li>
+    <br/>
+    <ul>
+        <li>An undefined instruction.</li>
+        <br/>
+        <li>An illegal unaligned access.</li>
+        <br/>
+        <li>Invalid state on instruction execution.</li>
+        <br/>
+        <li>An error on exception return.</li>
+        <br/>
+    </ul>
+    <br/>
+    <li>The following can cause a usage fault when the core is configured to report it:</li>
+    <br/>
+    <ul>
+        <li>An unaligned address on word and halfword memory access.</li>
+        <br/>
+        <li>Divide by zero.</li>
+        <br/>
+    </ul>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> SVCall </h3>
+<ol>
+    <li>A supervisor call (SVC) is an exception that is triggered by the SVC instruction.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> PendSV </h3>
+<ol>
+    <li>PendSV is an interrupt-driven request for system-level service.</li>
+    <br/>
+    <li>In an OS environment,
+        use PendSV for context switching when no other exception is active.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> SysTick </h3>
+<ol>
+    <li>A SysTick exception is an exception the system timer generates when it reaches zero.</li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Interrupt (IRQ) </h3>
+<ol>
+    <li>An interrupt, or IRQ, is an exception signalled by a peripheral, or generated by a software request.</li>
+    <br/>
+    <li>All interrupts are asynchronous to instruction execution.</li>
+    <br/>
+    <li>In the system, peripherals use interrupts to communicate with the processor.</li>
+    <br/>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Exception number</th>
+                <th>IRQ number</th>
+                <th>Exception type</th>
+                <th>Priority</th>
+                <th>Vector address or offset</th>
+                <th>Activation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>-</td>
+                <td>Reset</td>
+                <td>-3, the highest</td>
+                <td>0x0000 0004</td>
+                <td>Asynchronous</td>
+            </tr>
+
+
+            <tr>
+                <td>2</td>
+                <td>-14</td>
+                <td>NMI</td>
+                <td>-2</td>
+                <td>0x0000 0008</td>
+                <td>Asynchronous</td>
+            </tr>
+
+
+            <tr>
+                <td>3</td>
+                <td>-13</td>
+                <td>Hard fault</td>
+                <td>-1</td>
+                <td>0x0000 000C</td>
+                <td>-</td>
+            </tr>
+
+
+            <tr>
+                <td>4</td>
+                <td>-12</td>
+                <td>Memory management fault</td>
+                <td>Configurable</td>
+                <td>0x0000 0010</td>
+                <td>Synchronous</td>
+            </tr>
+
+
+            <tr>
+                <td>5</td>
+                <td>-11</td>
+                <td>Bus fault</td>
+                <td>Configurable</td>
+                <td>0x0000 0014</td>
+                <td>Synchronous when precise.<br/>Asynchronous when imprecise.</td>
+            </tr>
+
+
+            <tr>
+                <td>6</td>
+                <td>-10</td>
+                <td>Usage fault</td>
+                <td>Configurable</td>
+                <td>0x0000 0018</td>
+                <td>Synchronous</td>
+            </tr>
+
+
+            <tr>
+                <td>7 ~ 10</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Reserved</td>
+                <td>-</td>
+            </tr>
+
+
+            <tr>
+                <td>11</td>
+                <td>-5</td>
+                <td>SVCall</td>
+                <td>Configurable</td>
+                <td>0x0000 002C</td>
+                <td>Synchronous</td>
+            </tr>
+
+
+            <tr>
+                <td>12, 13</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Reserved</td>
+                <td>-</td>
+            </tr>
+
+
+            <tr>
+                <td>14</td>
+                <td>-2</td>
+                <td>PendSV</td>
+                <td>Configurable</td>
+                <td>0x0000 0038</td>
+                <td>Asynchronous</td>
+            </tr>
+
+
+            <tr>
+                <td>15</td>
+                <td>-1</td>
+                <td>SysTick</td>
+                <td>Configurable</td>
+                <td>0x0000 003C</td>
+                <td>Asynchronous</td>
+            </tr>
+
+
+            <tr>
+                <td>16 and above</td>
+                <td>0 and above</td>
+                <td>Interrupt (IRQ)</td>
+                <td>Configurable</td>
+                <td>0x0000 0040 and above</td>
+                <td>Asynchronous</td>
+            </tr>
+        </tbody>
+    </table>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Exception Handlers </h3>
+<ol>
+    <li>Interrupt Servie Routines (ISRs)</li>
+    <ul><li>Interrupts IRQ0 to IRQ81 are the exceptions handled by ISRs.</li></ul>
+    <br/>
+    <li>Fault Handlers</li>
+    <ul><li>Hard fault, memory management fault, usage fault, bus fault are fault exceptions handled by the fault handlers.</li></ul>
+    <br/>
+    <li>System Handlers</li>
+    <ul><li>NMI, PendSV, SVCall SysTick, and the fault exceptions are all system exceptions that are handled by system handlers.</li></ul>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Vector Table </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Exception Priorities </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Interrupt Priority Grouping </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Exception Entry </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Exception Return </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Fault Handling </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Fault Types </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Fault Escalation and Hard Faults </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Fault Status Registers and fault Address Registers </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Lockup </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Power Management </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Entering Sleep Mode </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Wakeup from Sleep Mode </h3>
+<ol>
+    <li></li>
+    <br/>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> Instruction Set </h3>
+<ol>
+    <li id="isa-summary">Summary:</li>
+</ol>
+<br/>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+<!-- -- -- -- -- -- -- -- -- -- -->
+<h3> H3 </h3>
+<!-- -- -- -- -- -- -- -- -- -- -->
+
+
+<hr/>
+
+
+</body>
+</html>
+
+
