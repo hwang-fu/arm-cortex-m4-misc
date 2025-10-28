@@ -95,7 +95,7 @@
 <hr/>
 
 <!-- -- -- -- -- -- -- -- -- -- -->
-<h3>Abbreviations</h3>
+<h3> Abbreviations and Concepts </h3>
 
 <ol>
     <li><b>r</b>: read-only</li>
@@ -118,6 +118,13 @@
     <br/>
     <li><b>rs_w1</b>: read / set-on-write-1 (alias of rs)</li>
     <br/>
+    <br/>
+    <br/>
+    <li><b>byte</b>: 8-bit</li>
+    <br/>
+    <li><b>half-word</b>: 16-bit</li>
+    <br/>
+    <li><b>word</b>: 32-bit</li>
 </ol>
 
 <br/>
@@ -2676,6 +2683,13 @@ Will be covered in the future...
     <li>In Handler mode, the stack pointer is always <b>MSP</b>.</li>
     <br/>
     <li>On reset, the processor loads the <b>MSP</b> with the value from address 0x0000 0000.</li>
+    <br/>
+    <li>In Cortex-M4, the stack grows downward in memory (from higher address to lower address).</li>
+    <br/>
+    <li>Each push operation decrements the SP before storing data.</li>
+    <li>Each pop  operation loads the data and then incements the SP afterward.</li>
+    <br/>
+    <li>Therefore, the SP always points to the <u>last valid word</u>.</li>
 </ol>
 <br/>
 <!-- -- -- -- -- -- -- -- -- -- -->
@@ -3812,28 +3826,265 @@ Will be covered in the future...
         the processor pushes information onto the current stack.<br/>
         This operation is referred as <u>stacking</u> and the structure of eight data words is referred as <u>stack frame</u>.</li>
     <br/>
+    <br/>
     <li>When using floating-point routines,
         the Cortex-M4 processor automatically stacks the architected floating-point state on exception entry.</li>
-    <br/>
     <li>Where stack space for floating-point state is not allocated,
         the stack frame is the same as that of Armv7-M implementations without an FPU.</li>
     <br/>
-    <li></li>
     <br/>
-    <li></li>
+    <li>Exception frame with floating-point storage.</li>
     <br/>
-</ol>
-<br/>
-<!-- -- -- -- -- -- -- -- -- -- -->
-
-
-<hr/>
-
-
-<!-- -- -- -- -- -- -- -- -- -- -->
-<h3> Fault Handling </h3>
-<ol>
-    <li></li>
+    <table>
+        <thead>
+            <tr>
+                <th>Stack Order (from SP)</th>
+                <th>Register</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>SP + 0x20</td>
+                <td>{Aligner}</td>
+            </tr>
+            <tr>
+                <td>SP + 0x1C</td>
+                <td>xPSR</td>
+            </tr>
+            <tr>
+                <td>SP + 0x18</td>
+                <td>PC (R15)</td>
+            </tr>
+            <tr>
+                <td>SP + 0x14</td>
+                <td>LR (R14)</td>
+            </tr>
+            <tr>
+                <td>SP + 0x10</td>
+                <td>R12</td>
+            </tr>
+            <tr>
+                <td>SP + 0x0C</td>
+                <td>R3</td>
+            </tr>
+            <tr>
+                <td>SP + 0x08</td>
+                <td>R2</td>
+            </tr>
+            <tr>
+                <td>SP + 0x04</td>
+                <td>R1</td>
+            </tr>
+            <tr>
+                <td>SP + 0x00</td>
+                <td>R0</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>Exception frame without floating-point storage.</li>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Stack Order (from SP)</th>
+                <th>Register</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>{Aligner}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>FPSCR</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S15</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S14</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S13</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S12</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S11</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S10</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S9</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S8</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S7</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S6</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S5</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S4</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S3</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S2</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S1</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>S0</td>
+            </tr>
+            <tr>
+                <td>SP + 0x1C</td>
+                <td>xPSR</td>
+            </tr>
+            <tr>
+                <td>SP + 0x18</td>
+                <td>PC (R15)</td>
+            </tr>
+            <tr>
+                <td>SP + 0x14</td>
+                <td>LR (R14)</td>
+            </tr>
+            <tr>
+                <td>SP + 0x10</td>
+                <td>R12</td>
+            </tr>
+            <tr>
+                <td>SP + 0x0C</td>
+                <td>R3</td>
+            </tr>
+            <tr>
+                <td>SP + 0x08</td>
+                <td>R2</td>
+            </tr>
+            <tr>
+                <td>SP + 0x04</td>
+                <td>R1</td>
+            </tr>
+            <tr>
+                <td>SP + 0x00</td>
+                <td>R0</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>The alignment of the stack frame is controlled via the STKALIGN-bit of the Configuration Control Register (CCR).</li>
+    <br/>
+    <li>In parallel to the stacking operation,
+        the processor performs a vector fetch that reads the exception handler start address from the vector table.<br/>
+        When stacking is complete,
+        the processor starts executing the exception handler.<br/>
+        At the same time, the processor writes an <b>EXC_RETURN</b> value to the LR.
+        This indicates which stack pointer corresponds to the stack frame and what operation mode the was processor was in before the entry occurred.</li>
+    <br/>
+    <li>If another higher priority exception occurs during exception entry,
+        the processor starts executing the exception handler for this exception and does not change the pending status of the earlier exception.
+        <br/>This is the late arrival case.</li>
+    <br/>
+    <li>Exception return occurs when the processor is in Handler mode
+        and executes one of the following instructions to load the <b>EXC_RETURN</b> value into the PC:</li>
+    <ul>
+        <br/>
+        <li>an <span class="hl-green-fg">LDM</span> or <span class="hl-green-fg">POP</span> instruction that loads the PC.</li>
+        <br/>
+        <li>an <span class="hl-green-fg">LDR</span> instruction with PC as the destination.</li>
+        <br/>
+        <li>an <span class="hl-green-fg">BX</span> instruction using any register.</li>
+        <br/>
+    </ul>
+    <br/>
+    <li>The lowest five bits of this value provide information on the return stack and processor mode.<br/>
+        And all <b>EXC_RETURN</b> values have bits[31:5] set to one.
+    </li>
+    <br/>
+    <ul>
+        <li>4th-bit<br/>
+            1 = return to Thread mode.<br/>
+            0 = return to Handler mode.</li>
+        <br/>
+        <li>3rd-bit<br/>
+            1 = return using PSP.<br/>
+            0 = return using MSP.</li>
+        <br/>
+        <li>2nd-bit<br/>
+            1 = FP state not active.<br/>
+            0 = FP state active.</li>
+        <br/>
+    </ul>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>EXC_RETURN[31:0]</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0xFFFF FFF1</td>
+                <td>Return to Handler mode.<br/>
+                    Exception return uses non-floating-point state from the MSP and execution uses MSP after return.</td>
+            </tr>
+            <tr>
+                <td>0xFFFF FFF9</td>
+                <td>Return to Thread mode.<br/>
+                    Exception return uses non-floating-point state from MSP and execution uses MSP after return.</td>
+            </tr>
+            <tr>
+                <td>0xFFFF FFFD</td>
+                <td>Return to Thread mode.<br/>
+                    Exception return uses non-floating-point state from the PSP and execution uses PSP after return.</td>
+            </tr>
+            <tr>
+                <td>0xFFFF FFE1</td>
+                <td>Return to Handler mode.<br/>
+                    Exception return uses floating-point-state from MSP and execution uses MSP after return.</td>
+            </tr>
+            <tr>
+                <td>0xFFFF FFE9</td>
+                <td>Return to Thread mode.<br/>
+                    Exception return uses floating-point state from MSP and execution uses MSP after return.</td>
+            </tr>
+            <tr>
+                <td>0xFFFF FFED</td>
+                <td>Return to Thread mode.<br/>
+                    Exception return uses floating-point state from PSP and execution uses PSP after return.</td>
+            </tr>
+        </tbody>
+    </table>
     <br/>
 </ol>
 <br/>
@@ -3845,10 +4096,132 @@ Will be covered in the future...
 
 <!-- -- -- -- -- -- -- -- -- -- -->
 <h3> Fault Types </h3>
-<ol>
-    <li></li>
-    <br/>
-</ol>
+<table>
+    <thead>
+        <tr>
+            <th>Fault</th>
+            <th>Handler</th>
+            <th>Bit Name</th>
+            <th>Fault Status Register</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Bus error on a vector read.</td>
+            <td>Hard fault</td>
+            <td>VECTTBL</td>
+            <td><a href="#hfsr">HFSR</a></td>
+        </tr>
+        <tr>
+            <td>Fault escalated to a hard fault.</td>
+            <td>Hard fault</td>
+            <td>FORCED</td>
+            <td><a href="#hfsr">HFSR</a></td>
+        </tr>
+        <tr>
+            <td>MPU or default memory map mismatch on instructions access</td>
+            <td>MemManage</td>
+            <td>IACCVIOL</td>
+            <td><a href="mmfar">MMFAR</a></td>
+        </tr>
+        <tr>
+            <td>MPU or default memory map mismatch on data access</td>
+            <td>MemManage</td>
+            <td>DACCVIOL</td>
+            <td><a href="mmfar">MMFAR</a></td>
+        </tr>
+        <tr>
+            <td>MPU or default memory map mismatch during exception stacking</td>
+            <td>MemManage</td>
+            <td>MSTKERR</td>
+            <td><a href="mmfar">MMFAR</a></td>
+        </tr>
+        <tr>
+            <td>MPU or default memory map mismatch during exception unstacking</td>
+            <td>MemManage</td>
+            <td>MUNSTKERR</td>
+            <td><a href="mmfar">MMFAR</a></td>
+        </tr>
+        <tr>
+            <td>MPU or default memory map mismatch during lazy FP state preservation</td>
+            <td>MemManage</td>
+            <td>MLSPERR</td>
+            <td><a href="mmfar">MMFAR</a></td>
+        </tr>
+        <tr>
+            <td>Bus error during exception stacking</td>
+            <td>Bus fault</td>
+            <td>STKERR</td>
+            <td><a href="#bfar">BFAR</a></td>
+        </tr>
+        <tr>
+            <td>Bus error during exception unstacking</td>
+            <td>Bus fault</td>
+            <td>UNSTKERR</td>
+            <td><a href="#bfar">BFAR</a></td>
+        </tr>
+        <tr>
+            <td>Bus error during instruction prefetch</td>
+            <td>Bus fault</td>
+            <td>IBUSERR</td>
+            <td><a href="#bfar">BFAR</a></td>
+        </tr>
+        <tr>
+            <td>Bus error during lazy FU state preservation</td>
+            <td>Bus fault</td>
+            <td>LSPERR</td>
+            <td><a href="#bfar">BFAR</a></td>
+        </tr>
+        <tr>
+            <td>Precise data bus error</td>
+            <td>Bus fault</td>
+            <td>PRECISERR</td>
+            <td><a href="#bfar">BFAR</a></td>
+        </tr>
+        <tr>
+            <td>Imprecise data bus error</td>
+            <td>Bus fault</td>
+            <td>IMPRECISERR</td>
+            <td><a href="#bfar">BFAR</a></td>
+        </tr>
+        <tr>
+            <td>Attempt to access a coprocessor</td>
+            <td>Usage fault</td>
+            <td>NOCP</td>
+            <td><a href="#cfsr">CFSR</a></td>
+        </tr>
+        <tr>
+            <td>Undefined instruction</td>
+            <td>Usage fault</td>
+            <td>UNDEFINSTR</td>
+            <td><a href="#cfsr">CFSR</a></td>
+        </tr>
+        <tr>
+            <td>Attempt to enter an invalid instruction set state</td>
+            <td>Usage fault</td>
+            <td>INVSTATE</td>
+            <td><a href="#cfsr">CFSR</a></td>
+        </tr>
+        <tr>
+            <td>Invalid <b>EXC_RETURN</b> value</td>
+            <td>Usage fault</td>
+            <td>INVPC</td>
+            <td><a href="#cfsr">CFSR</a></td>
+        </tr>
+        <tr>
+            <td>Illegal unaligned load or store</td>
+            <td>Usage fault</td>
+            <td>UNALIGNED</td>
+            <td><a href="#cfsr">CFSR</a></td>
+        </tr>
+        <tr>
+            <td>Divide by 0</td>
+            <td>Usage fault</td>
+            <td>DIVBYZERO</td>
+            <td><a href="#cfsr">CFSR</a></td>
+        </tr>
+    </tbody>
+</table>
 <br/>
 <!-- -- -- -- -- -- -- -- -- -- -->
 
@@ -3859,20 +4232,27 @@ Will be covered in the future...
 <!-- -- -- -- -- -- -- -- -- -- -->
 <h3> Fault Escalation and Hard Faults </h3>
 <ol>
-    <li></li>
+    <li>In some situations, a fault with configurable priority is treated as a hard fault.<br/>
+        This is called priority escalation, and the fault is described as escalated to hard fault.</li>
     <br/>
-</ol>
-<br/>
-<!-- -- -- -- -- -- -- -- -- -- -->
-
-
-<hr/>
-
-
-<!-- -- -- -- -- -- -- -- -- -- -->
-<h3> Fault Status Registers and fault Address Registers </h3>
-<ol>
-    <li></li>
+    <ul>
+        <li>A fault handler causes the same kind of fault as the one it is servicing.</li>
+        <br/>
+        <li>A fault handler causes a fault with the same or lower priority as the fault it is servicing.</li>
+        <br/>
+        <li>An exception handler causes a fault for which the priority is the same as or lower than the currently executing exception.</li>
+        <br/>
+        <li>A fault occurs and the handler for that fault is not enabled.</li>
+        <br/>
+    </ul>
+    <br/>
+    <br/>
+    <li>if a corrupted stack causes a fault,
+        the fault handler executes even though the stack push for the handler failed.<br/>
+        The fault handler operates but the stack contents are corrupted.</li>
+    <br/>
+    <li>Only Reset and NMI can preempt the fixed priority hard fault.<br/>
+        A hard fault can preempt any exception other than Reset, NMI, or another hard fault.</li>
     <br/>
 </ol>
 <br/>
@@ -3885,7 +4265,19 @@ Will be covered in the future...
 <!-- -- -- -- -- -- -- -- -- -- -->
 <h3> Lockup </h3>
 <ol>
-    <li></li>
+    <li>The processor enters a <u>lockup state</u> if a hard fault occurs when executing the NMI or hard fault handlers.</li>
+    <br/>
+    <li>The processor remains in lockup state until either:</li>
+    <ul>
+        <br/>
+        <li>It resets.</li>
+        <br/>
+        <li>An NMI occurs.</li>
+        <br/>
+        <li>A debugger stops or halts the program.</li>
+    </ul>
+    <br/>
+    <li>If <u>lockup state</u> occurs from the NMI handler a subsequent NMI does not cause the processor to leave lockup state.</li>
     <br/>
 </ol>
 <br/>
@@ -3898,7 +4290,9 @@ Will be covered in the future...
 <!-- -- -- -- -- -- -- -- -- -- -->
 <h3> Power Management </h3>
 <ol>
-    <li></li>
+    <li>The STM32 and Cortex-M4 processor sleep modes reduce power consumption.</li>
+    <br/>
+    <li>The SLEEPDEEP-bit of the SCR selects which sleep mode is used.</li>
     <br/>
 </ol>
 <br/>
@@ -3911,7 +4305,26 @@ Will be covered in the future...
 <!-- -- -- -- -- -- -- -- -- -- -->
 <h3> Entering Sleep Mode </h3>
 <ol>
-    <li></li>
+    <li>Wait for interrupt.</li>
+    <br/>
+    <ul><li>The wait for interrupt instruction, <b class="hl-green-fg">WFI</b>,
+            causes immediate entry to sleep mode (unless the wake-up condition is true).</li></ul>
+    <br/>
+    <br/>
+    <li>Wait for event.</li>
+    <br/>
+    <ul>
+        <li>The wait for event instruction, <b class="hl-green-fg">WFE</b>,
+            causes entry to sleep mode depending on the value of a one-bit event register.</li>
+        <br/>
+        <li>0: the processor stops executing instructions and enters sleep mode.<br/>
+            1: the processor clears the register to 0 and continues executing instructions without entering sleep mode.</li>
+    </ul>
+    <br/>
+    <br/>
+    <li>If the SLEEPONEXIT-bit of the <a href="#scr">SCR</a> is set to 1,
+        when the processor completes the execution of an exception handler,
+        it returns to Thread mode and immediately enters sleep mode.</li>
     <br/>
 </ol>
 <br/>
