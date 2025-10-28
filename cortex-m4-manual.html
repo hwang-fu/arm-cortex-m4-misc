@@ -3547,12 +3547,15 @@ Will be covered in the future...
 <h3> Exception Handlers </h3>
 <ol>
     <li>Interrupt Servie Routines (ISRs)</li>
-    <ul><li>Interrupts IRQ0 to IRQ81 are the exceptions handled by ISRs.</li></ul>
+    <br/>
+    <ul><li>Interrupts <u>IRQ0</u> to <u>IRQ81</u> are the exceptions handled by ISRs.</li></ul>
     <br/>
     <li>Fault Handlers</li>
+    <br/>
     <ul><li>Hard fault, memory management fault, usage fault, bus fault are fault exceptions handled by the fault handlers.</li></ul>
     <br/>
     <li>System Handlers</li>
+    <br/>
     <ul><li>NMI, PendSV, SVCall SysTick, and the fault exceptions are all system exceptions that are handled by system handlers.</li></ul>
     <br/>
 </ol>
@@ -3566,7 +3569,150 @@ Will be covered in the future...
 <!-- -- -- -- -- -- -- -- -- -- -->
 <h3> Vector Table </h3>
 <ol>
-    <li></li>
+    <li>It contains the reset value of the stack pointer, and the start addresses for all exception handlers.</li>
+    <br/>
+    <li>The least-significant bit of each vector must be 1.</li>
+    <br/>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Exception number</th>
+                <th>IRQ number</th>
+                <th>Offset</th>
+                <th>Vector</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>-</td>
+                <td>-</td>
+                <td><code>0x0000</code></td>
+                <td>Initial SP value</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>-</td>
+                <td><code>0x0004</code></td>
+                <td>Reset</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>-</td>
+                <td><code>0x0008</code></td>
+                <td>NMI</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>-</td>
+                <td><code>0x000C</code></td>
+                <td>Hard fault</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>-</td>
+                <td><code>0x0010</code></td>
+                <td>Memory management fault</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>-</td>
+                <td><code>0x0014</code></td>
+                <td>Bus fault</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>-</td>
+                <td><code>0x0018</code></td>
+                <td>Usage fault</td>
+            </tr>
+            <tr>
+                <td>7 ~ 10</td>
+                <td>-</td>
+                <td><code>-</code></td>
+                <td>Reserved.</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>-</td>
+                <td><code>0x002C</code></td>
+                <td>SVCall</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>-</td>
+                <td><code>-</code></td>
+                <td>Reserved for Debug</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>-</td>
+                <td><code>-</code></td>
+                <td>Reserved.</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>-</td>
+                <td><code>0x0038</code></td>
+                <td>PendSV</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>-</td>
+                <td><code>0x003C</code></td>
+                <td>Systick</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>0</td>
+                <td><code>0x0040</code></td>
+                <td>IRQ0</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>1</td>
+                <td><code>0x0044</code></td>
+                <td>IRQ1</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>2</td>
+                <td><code>0x0048</code></td>
+                <td>IRQ2</td>
+            </tr>
+            <tr>
+                <td>.</td>
+                <td>.</td>
+                <td><code>.</code></td>
+                <td>.</td>
+            </tr>
+            <tr>
+                <td>n</td>
+                <td>n - 16</td>
+                <td><code>0x0040 + 4 x (n - 16)</code></td>
+                <td>IRQn</td>
+            </tr>
+            <tr>
+                <td>.</td>
+                <td>.</td>
+                <td><code>.</code></td>
+                <td>.</td>
+            </tr>
+            <tr>
+                <td>255</td>
+                <td>239</td>
+                <td><code>0x03FC</code></td>
+                <td>IRQ239</td>
+            </tr>
+        </tbody>
+    </table>
+    <br/>
+    <br/>
+    <li>On system reset, the vector table is fixed at address 0x0000 0000.</li>
+    <br/>
+    <li>Privileged software can write to the <a href="#vtor">VTOR</a>
+        to relocate the vector table start address to a different memory location,<br/>
+        in the range <code>0x00000080</code> to <code>0x3FFFFF80</code>.</li>
     <br/>
 </ol>
 <br/>
@@ -3579,7 +3725,18 @@ Will be covered in the future...
 <!-- -- -- -- -- -- -- -- -- -- -->
 <h3> Exception Priorities </h3>
 <ol>
-    <li></li>
+    <li>A lower priority value indicating a higher priority.</li>
+    <br/>
+    <li>Configurable priorities for all exceptions except Reset, Hard fault, and NMI.</li>
+    <br/>
+    <li>If software does not configure any priorities,
+        then all exceptions with a configurable priority have a priority of 0.</li>
+    <br/>
+    <li>Configurable priority values are in the range 0 ~ 15.</li>
+    <br/>
+    <li>When the processor is executing an exception handler, the exception handler is preempted if a higher priority exception occurs. <br/>
+        If an exception occurs with the same priority as the exception being handled,
+        the handler is not preempted, irrespective of the exception number.<br/></li>
     <br/>
 </ol>
 <br/>
@@ -3592,7 +3749,23 @@ Will be covered in the future...
 <!-- -- -- -- -- -- -- -- -- -- -->
 <h3> Interrupt Priority Grouping </h3>
 <ol>
-    <li></li>
+    <li>This divides each interrupt priority register entry into two fields:</li>
+    <br/>
+    <ul>
+        <li>A <u>upper field</u> that defines the <u><i>group priority</i></u>.</li>
+        <br/>
+        <li>A <u>lower field</u> that defines a <u><i>subpriority within the group</i></u>.</li>
+        <br/>
+    </ul>
+    <br/>
+    <li>Only the <u>group priority</u> determines preemption of interrupt exceptions.<br/>
+        When the processor is executing an interrupt exception handler,
+        another interrupt with the same group priority as the interrupt being handled does not preempt the handler..</li>
+    <br/>
+    <li>If multiple pending interrupts have the same group priority, the <u>subpriority</u> field determines the order in which they are processed.</li>
+    <br/>
+    <li> If multiple pending interrupts have the same group priority and subpriority,
+        the interrupt with the <u>lowest IRQ number</u> is processed first.</li>
     <br/>
 </ol>
 <br/>
@@ -3605,7 +3778,13 @@ Will be covered in the future...
 <!-- -- -- -- -- -- -- -- -- -- -->
 <h3> Exception Entry </h3>
 <ol>
-    <li></li>
+    <li>Preemption</li>
+    <br/>
+    <li>Return</li>
+    <br/>
+    <li>Tail-chaining</li>
+    <br/>
+    <li>Late-arriving</li>
     <br/>
 </ol>
 <br/>
@@ -3618,6 +3797,29 @@ Will be covered in the future...
 <!-- -- -- -- -- -- -- -- -- -- -->
 <h3> Exception Return </h3>
 <ol>
+    <li>Exception entry occurs when there is a pending exception <i>with sufficient priority</i> and either:</li>
+    <ul>
+        <br/>
+        <li>The processor is in Thread mode.</li>
+        <br/>
+        <li>The new exception is of higher priority than the exception being handled,
+            in which case the new exception preempts the original exception.</li>
+        <br/>
+    </ul>
+    <br/>
+    <li>When the processor takes an exception,
+        unless the exception is a tail-chained or a late-arriving exception,
+        the processor pushes information onto the current stack.<br/>
+        This operation is referred as <u>stacking</u> and the structure of eight data words is referred as <u>stack frame</u>.</li>
+    <br/>
+    <li>When using floating-point routines,
+        the Cortex-M4 processor automatically stacks the architected floating-point state on exception entry.</li>
+    <br/>
+    <li>Where stack space for floating-point state is not allocated,
+        the stack frame is the same as that of Armv7-M implementations without an FPU.</li>
+    <br/>
+    <li></li>
+    <br/>
     <li></li>
     <br/>
 </ol>
