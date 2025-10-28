@@ -4352,6 +4352,29 @@ Will be covered in the future...
 <ol>
     <li><i>Op2</i> is a flexible operand that can be either a register or a constant.</li>
     <br/>
+    <li><i>Shift</i> is an optional shift to be applied to Rm.<br/>
+        It can be one of the following:</li>
+    <ul>
+        <li>
+            ASR #n: Arithmetic shift right n bits, 1 ≤ n ≤ 32
+        </li>
+        <li>
+            LSL #n: Logical shift left n bits, 1 ≤ n ≤ 31
+        </li>
+        <li>
+            LSR #n: Logical shift right n bits, 1 ≤ n ≤ 32
+        </li>
+        <li>
+            ROR #n: Rotate right n bits, 1 ≤ n ≤ 31
+        </li>
+        <li>
+            RRX: Rotate right one bit, with extend
+        </li>
+        <li>
+            —: If omitted, no shift occurs, equivalent to LSL #0
+        </li>
+    </ul>
+    <br/>
     <li id="isa-summary">Summary:</li>
     <br/>
 </ol>
@@ -4363,7 +4386,25 @@ Will be covered in the future...
 
 
 <!-- -- -- -- -- -- -- -- -- -- -->
-<h3> H3 </h3>
+<h3> Restrictions when using <a href="#pc">PC</a> or <a href="#sp">SP</a> </h3>
+<ol>
+    <li>0th-bit of any address written to the <a href="#pc">PC</a> with a
+        <b class="hl-green-fg">BX</b>
+        ,
+        <b class="hl-green-fg">BLX</b>
+        ,
+        <b class="hl-green-fg">LDM</b>
+        ,
+        <b class="hl-green-fg">LDR</b>
+        ,
+        or
+        <b class="hl-green-fg">POP</b>
+        instruction must be 1 for correct execution.<br/>
+        Because this bit indicates the required instruction set,
+        and the Cortex-M4 processor only supports thumb instructions.</li>
+    <br/>
+</ol>
+<br/>
 <!-- -- -- -- -- -- -- -- -- -- -->
 
 
