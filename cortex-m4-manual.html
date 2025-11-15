@@ -118,6 +118,7 @@
         font-family: "FiraCode Nerd Font", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
         font-size: 0.875rem;                /* 14px-ish; avoid bare numbers */
         line-height: 1.4;
+    }
 
 
     /* Block code container */
@@ -979,7 +980,7 @@ The <b>ACTLR</b> register is <u>32-bit</u> and provides disable bits for the fol
 5. Bit 0 - DISMCYCINT
 
 <ul>
-    <li>0 (default): An interrupt can preempt the CPU even while it’s in the middle of a multi-cycle instruction.</li>
+    <li>0 (default): An interrupt can preempt the CPU even while it's in the middle of a multi-cycle instruction.</li>
     <li>1 : Prevents interrupts from interrupting multi-cycle instructions — the CPU finishes the instruction first.</li>
 </ul>
 
@@ -4465,11 +4466,9 @@ Will be covered in the future...
     <br/>
     <br/>
     <li>Example Usage:</li>
-    <pre><code class="language-armasm line-numbers">
-        CMP   R0, #10      ; Compare R0 with 10, sets flags
-        BGE   greater_eq   ; Branch if R0 &gt;= 10  (N == V)
-        ADDNE R1, R1, #1   ; Increment R1 if R0 != 10  (Z == 0)
-    </code></pre>
+<pre><code class="language-armasm line-numbers">CMP   R0, #10      ; Compare R0 with 10, sets flags
+BGE   greater_eq   ; Branch if R0 &gt;= 10  (N == V)
+ADDNE R1, R1, #1   ; Increment R1 if R0 != 10  (Z == 0)</code></pre>
     <br/>
 </ol>
 <br/>
@@ -4483,10 +4482,8 @@ Will be covered in the future...
 <h3> ADD, ADC, SUB, SBC, and RSB </h3>
 <ol>
     <li>Syntax:</li>
-    <pre><code class="language-armasm line-numbers">
-        op{S}{cond} {Rd, } Rn, Op2
-        op{cond} {Rd, } Rn, #imm12; ADD and SUB only
-    </code></pre>
+<pre><code class="language-armasm line-numbers">op{S}{cond} {Rd, } Rn, Op2
+op{cond} {Rd, } Rn, #imm12  ; ADD and SUB only</code></pre>
     <br/>
     <li><i>'op'</i></li>
     <br/>
